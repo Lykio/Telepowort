@@ -19,6 +19,9 @@
       <option name="BuildArtifacts" enabled="true">
         <artifact name="telepowort" />
       </option>
+      <option name="BuildArtifacts" enabled="true">
+        <artifact name="telepowort-direct" />
+      </option>
     </method>
   </configuration>
 </component>

@@ -1,47 +1,55 @@
 package dreamers.lykiofrostpaw.plugin;
 
-import dreamers.lykiofrostpaw.plugin.commands.names;
-import dreamers.lykiofrostpaw.plugin.commands.home.*;
-import dreamers.lykiofrostpaw.plugin.commands.tpa.*;
-import dreamers.lykiofrostpaw.plugin.commands.warp.*;
-import dreamers.lykiofrostpaw.plugin.commands.miscellaneous.*;
+import dreamers.lykiofrostpaw.plugin.commands.home.delhome;
+import dreamers.lykiofrostpaw.plugin.commands.home.home;
+import dreamers.lykiofrostpaw.plugin.commands.home.sethome;
+import dreamers.lykiofrostpaw.plugin.commands.miscellaneous.nickname;
+import dreamers.lykiofrostpaw.plugin.commands.miscellaneous.ping;
+import dreamers.lykiofrostpaw.plugin.commands.tpa.tpa;
+import dreamers.lykiofrostpaw.plugin.commands.tpa.tpaccept;
+import dreamers.lykiofrostpaw.plugin.commands.tpa.tpadecline;
+import dreamers.lykiofrostpaw.plugin.commands.tpa.tpahere;
+import dreamers.lykiofrostpaw.plugin.commands.warp.delwarp;
+import dreamers.lykiofrostpaw.plugin.commands.warp.setwarp;
+import dreamers.lykiofrostpaw.plugin.commands.warp.warp;
 import org.bukkit.plugin.java.JavaPlugin;
 
+
 public final class Telepowort extends JavaPlugin {
+
     @Override
     public void onEnable() {
-        System.out.println("[Telepowort] Enabled!");
 
         // Home
-        this.getCommand(names.command_home).setExecutor(new home(this));
-        this.getCommand(names.command_sethome).setExecutor(new sethome(this));
-        this.getCommand(names.command_delhome).setExecutor(new delhome(this));
+        this.getCommand("home").setExecutor(new home(this));
+        this.getCommand("sethome").setExecutor(new sethome(this));
+        this.getCommand("delhome").setExecutor(new delhome(this));
 
         // TPA
-        this.getCommand(names.command_tpa).setExecutor(new tpa(this));
-        this.getCommand(names.command_tpaccept).setExecutor(new tpaccept(this));
-        this.getCommand(names.command_tpadecline).setExecutor(new tpadecline(this));
-        this.getCommand(names.command_tpahere).setExecutor(new tpahere(this));
+        this.getCommand("tpa").setExecutor(new tpa(this));
+        this.getCommand("tpaccept").setExecutor(new tpaccept(this));
+        this.getCommand("tpadecline").setExecutor(new tpadecline(this));
+        this.getCommand("tpahere").setExecutor(new tpahere(this));
 
         // Warp
-        this.getCommand(names.command_warp).setExecutor(new warp(this));
-        this.getCommand(names.command_setwarp).setExecutor(new setwarp(this));
-        this.getCommand(names.command_delwarp).setExecutor(new delwarp(this));
+        this.getCommand("warp").setExecutor(new warp(this));
+        this.getCommand("setwarp").setExecutor(new setwarp(this));
+        this.getCommand("delwarp").setExecutor(new delwarp(this));
 
         // Misc
-        this.getCommand(names.command_ping).setExecutor(new ping(this));
-        this.getCommand(names.command_nickname).setExecutor(new nickname(this));
+        this.getCommand("ping").setExecutor(new ping(this));
+        this.getCommand("nickname").setExecutor(new nickname(this));
 
     }
 
     @Override
     public void onLoad() {
-        System.out.println("[Telepowort] Loaded!");
+
     }
 
     @Override
     public void onDisable() {
-        System.out.println("[Telepowort] Disabled!");
+
     }
 
 }
