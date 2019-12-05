@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="telepowort">
+    <output-path>$USER_HOME$/OneDrive/Desktop/My dumpster fire folder/a/plugins</output-path>
+    <root id="archive" name="telepowort.jar">
+      <element id="module-output" name="Telepowort" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/plugin.yml" />
+    </root>
+  </artifact>
+</component>
