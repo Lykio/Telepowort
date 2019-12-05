@@ -1,0 +1,24 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="runnable" type="JarApplication">
+    <extension name="net.ashald.envfile">
+      <option name="IS_ENABLED" value="false" />
+      <option name="IS_SUBST" value="false" />
+      <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+      <option name="IS_IGNORE_MISSING_FILES" value="false" />
+      <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+      <ENTRIES>
+        <ENTRY IS_ENABLED="true" PARSER="runconfig" />
+      </ENTRIES>
+    </extension>
+    <option name="JAR_PATH" value="$USER_HOME$/OneDrive/Desktop/My dumpster fire folder/a/server@paper230.jar" />
+    <option name="VM_PARAMETERS" value="-Xms750M -Xmx750M" />
+    <option name="WORKING_DIRECTORY" value="C:\Users\mwgin\OneDrive\Desktop\My dumpster fire folder\a\" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
+    <method v="2">
+      <option name="BuildArtifacts" enabled="true">
+        <artifact name="telepowort" />
+      </option>
+    </method>
+  </configuration>
+</component>
