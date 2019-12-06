@@ -28,7 +28,7 @@ public final class Telepowort extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        nickConfig = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "data/nickname.yml"));
+        nickConfig = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "nickname.yml"));
 
         // Home
         this.getCommand("home").setExecutor(new home(this));

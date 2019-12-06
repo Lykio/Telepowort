@@ -10,6 +10,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import java.io.File;
+import java.io.IOException;
 
 // IT BEGINS
 public class nickname implements CommandExecutor {
@@ -18,7 +19,7 @@ public class nickname implements CommandExecutor {
     private File nickConfigFile = null;
 
     private void reloadNicknames() {
-        nickConfigFile = new File(this.plugin.getDataFolder(), "data/nickname.yml");
+        nickConfigFile = new File(this.plugin.getDataFolder(), "nickname.yml");
         nickConfig = YamlConfiguration.loadConfiguration(nickConfigFile);
     }
 
@@ -31,10 +32,14 @@ public class nickname implements CommandExecutor {
 
     public void saveNicknames() {
         if (nickConfigFile == null) {
-            nickConfigFile = new File(this.plugin.getDataFolder(), "data/nickname.yml");
+            nickConfigFile = new File(this.plugin.getDataFolder(), "nickname.yml");
         }
 
-        this.plugin.saveResource("data/nickname.yml", true);
+        try {
+            nickConfig.save(nickConfigFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public nickname(Telepowort plugin) {
@@ -62,7 +67,8 @@ public class nickname implements CommandExecutor {
         FileConfiguration nicknames = getNicknames();
         nicknames.set(player.getName(), args[0]);
         saveNicknames();
-
+        player.setDisplayName((String) nicknames.get(player.getName()));
+        player.sendMessage("Changed your nickname. :)");
         return true;
     }
 }
