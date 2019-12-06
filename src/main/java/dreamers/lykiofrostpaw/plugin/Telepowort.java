@@ -12,13 +12,23 @@ import dreamers.lykiofrostpaw.plugin.commands.tpa.tpahere;
 import dreamers.lykiofrostpaw.plugin.commands.warp.delwarp;
 import dreamers.lykiofrostpaw.plugin.commands.warp.setwarp;
 import dreamers.lykiofrostpaw.plugin.commands.warp.warp;
+import dreamers.lykiofrostpaw.plugin.listeners.NameListener;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
 
 
 public final class Telepowort extends JavaPlugin {
 
+    private FileConfiguration nickConfig;
+    private FileConfiguration warpConfig;
+    private FileConfiguration homeConfig;
+
     @Override
     public void onEnable() {
+        nickConfig = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "nickname.yml"));
 
         // Home
         this.getCommand("home").setExecutor(new home(this));
@@ -40,6 +50,8 @@ public final class Telepowort extends JavaPlugin {
         this.getCommand("ping").setExecutor(new ping(this));
         this.getCommand("nickname").setExecutor(new nickname(this));
 
+        // For nickname functionality
+        new NameListener(this);
     }
 
     @Override
