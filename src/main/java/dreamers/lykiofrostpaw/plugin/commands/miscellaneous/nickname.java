@@ -18,7 +18,7 @@ public class nickname implements CommandExecutor {
     private File nickConfigFile = null;
 
     private void reloadNicknames() {
-        nickConfigFile = new File(this.plugin.getDataFolder(), "nickname.yml");
+        nickConfigFile = new File(this.plugin.getDataFolder(), "data/nickname.yml");
         nickConfig = YamlConfiguration.loadConfiguration(nickConfigFile);
     }
 
@@ -31,10 +31,10 @@ public class nickname implements CommandExecutor {
 
     public void saveNicknames() {
         if (nickConfigFile == null) {
-            nickConfigFile = new File(this.plugin.getDataFolder(), "nickname.yml");
+            nickConfigFile = new File(this.plugin.getDataFolder(), "data/nickname.yml");
         }
 
-        this.plugin.saveResource("nickname.yml", true);
+        this.plugin.saveResource("data/nickname.yml", true);
     }
 
     public nickname(Telepowort plugin) {
@@ -54,7 +54,7 @@ public class nickname implements CommandExecutor {
             player.sendMessage(ChatColor.RED + "You didn't specify a nickname.");
             return true;
         }
-        if (args.length <= 2) {
+        if (args.length > 1) {
             player.sendMessage(ChatColor.RED + "Nicknames can't have spaces.");
             return true;
         }

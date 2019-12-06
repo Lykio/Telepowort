@@ -4,6 +4,7 @@
     <root id="archive" name="telepowort.jar">
       <element id="module-output" name="Telepowort" />
       <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/plugin.yml" />
+      <element id="dir-copy" path="$PROJECT_DIR$/src/main/resources/data" />
     </root>
   </artifact>
 </component>

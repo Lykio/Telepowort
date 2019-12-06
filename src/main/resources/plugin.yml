@@ -9,10 +9,10 @@ commands:
     description: Will list all of your homes if no arguments or teleports you to home you set previously.
   delhome:
     usage: /delhome <home>
-    description: Deletes a home you set previously.
+    description: Deletes a home.
   sethome:
     usage: /sethome <name>
-    description: Creates a personal point of return.
+    description: Private warp.
   tpa:
     usage: /tpa <player>
     description: Teleports you to a player with permission.
@@ -27,16 +27,19 @@ commands:
     description: Won't permit a tpa or tpahere.
   warp:
     usage: /warp <warp>
-    description: Will list all warps if no arguments or will teleport you to a warp.
+    description: Lists every warp with no argument or teleports the player to a warp.
   setwarp:
     usage: /setwarp <name>
     description: https://media.tenor.com/images/fa3143e89d76490bdf83835cbd3d9fed/tenor.gif
   delwarp:
     usage: /delwarp <warp>
-    description: Will delete a warp that you set.
+    description: Deletes a warp.
   nickname:
     usage: /nick <nickname>
-    description: Take a wild guess.
+    description: Gives you a nickname.
   ping:
     usage: /ping
     description: Currently pongs - will eventually actually return latency. One day.
+  treload:
+    usage: /treload
+    description: Reloads telepowort.

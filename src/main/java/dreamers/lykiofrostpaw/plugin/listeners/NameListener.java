@@ -20,7 +20,7 @@ public class NameListener implements Listener {
     }
 
     private void reloadNicknames() {
-        File nickConfigFile = new File(this.plugin.getDataFolder(), "nickname.yml");
+        File nickConfigFile = new File(this.plugin.getDataFolder(), "data/nickname.yml");
         nickConfig = YamlConfiguration.loadConfiguration(nickConfigFile);
     }
 
