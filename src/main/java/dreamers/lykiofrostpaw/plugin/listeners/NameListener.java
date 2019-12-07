@@ -40,7 +40,7 @@ public class NameListener implements Listener {
         try {
             nickConfig.save(nickConfigFile);
         } catch (IOException e) {
-            e.printStackTrace();
+            this.plugin.getLogger().severe(e.getMessage());
         }
     }
 

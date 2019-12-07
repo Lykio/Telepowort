@@ -15,10 +15,7 @@ public class ping implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender player, Command command, String label, String[] args) {
-        if (true) {
-            player.sendMessage("AAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            return true;
-        }
-        return false;
+        player.sendMessage("AAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        return true;
     }
 }

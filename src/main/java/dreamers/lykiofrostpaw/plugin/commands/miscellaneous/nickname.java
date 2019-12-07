@@ -38,7 +38,7 @@ public class nickname implements CommandExecutor {
         try {
             nickConfig.save(nickConfigFile);
         } catch (IOException e) {
-            e.printStackTrace();
+            this.plugin.getLogger().severe(e.getMessage());
         }
     }
 

@@ -5,6 +5,7 @@ import dreamers.lykiofrostpaw.plugin.commands.home.home;
 import dreamers.lykiofrostpaw.plugin.commands.home.sethome;
 import dreamers.lykiofrostpaw.plugin.commands.miscellaneous.nickname;
 import dreamers.lykiofrostpaw.plugin.commands.miscellaneous.ping;
+import dreamers.lykiofrostpaw.plugin.commands.miscellaneous.treload;
 import dreamers.lykiofrostpaw.plugin.commands.tpa.tpa;
 import dreamers.lykiofrostpaw.plugin.commands.tpa.tpaccept;
 import dreamers.lykiofrostpaw.plugin.commands.tpa.tpadecline;
@@ -13,22 +14,13 @@ import dreamers.lykiofrostpaw.plugin.commands.warp.delwarp;
 import dreamers.lykiofrostpaw.plugin.commands.warp.setwarp;
 import dreamers.lykiofrostpaw.plugin.commands.warp.warp;
 import dreamers.lykiofrostpaw.plugin.listeners.NameListener;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.File;
 
 
 public final class Telepowort extends JavaPlugin {
 
-    private FileConfiguration nickConfig;
-    private FileConfiguration warpConfig;
-    private FileConfiguration homeConfig;
-
     @Override
     public void onEnable() {
-        nickConfig = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "nickname.yml"));
 
         // Home
         this.getCommand("home").setExecutor(new home(this));
@@ -49,6 +41,7 @@ public final class Telepowort extends JavaPlugin {
         // Misc
         this.getCommand("ping").setExecutor(new ping(this));
         this.getCommand("nickname").setExecutor(new nickname(this));
+        this.getCommand("treload").setExecutor(new treload(this));
 
         // For nickname functionality
         new NameListener(this);
