@@ -64,11 +64,14 @@ public class nickname implements CommandExecutor {
             return true;
         }
 
+        String name = args[0].replaceAll("&", "§") + ChatColor.RESET;
+
         FileConfiguration nicknames = getNicknames();
-        nicknames.set(player.getName(), args[0]);
+
+        nicknames.set(player.getName(), name);
         saveNicknames();
         player.setDisplayName((String) nicknames.get(player.getName()));
-        player.sendMessage("Changed your nickname. :)");
+        player.sendMessage("Changed your nickname. ÒwÓ");
         return true;
     }
 }
