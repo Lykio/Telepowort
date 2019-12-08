@@ -6,7 +6,7 @@ api-version: 1.14
 commands:
   home:
     usage: /home <home>
-    description: Will list all of your homes if no arguments or teleports you to home you set previously.
+    description: Teleports you to home you set previously.
   delhome:
     usage: /delhome <home>
     description: Deletes a home.
@@ -27,7 +27,7 @@ commands:
     description: Won't permit a tpa or tpahere.
   warp:
     usage: /warp <warp>
-    description: Lists every warp with no argument or teleports the player to a warp.
+    description: Teleports the player to a warp.
   setwarp:
     usage: /setwarp <name>
     description: https://media.tenor.com/images/fa3143e89d76490bdf83835cbd3d9fed/tenor.gif

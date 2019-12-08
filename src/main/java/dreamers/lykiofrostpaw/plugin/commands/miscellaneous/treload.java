@@ -16,11 +16,11 @@ public class treload implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender player, Command command, String label, String[] args) {
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         this.plugin.reloadConfig();
         this.plugin.getLogger().warning("Telepowort reloaded!");
-        if (!(player instanceof Player)) {
-            player.sendMessage(ChatColor.GREEN + "Telepowort reloaded!");
+        if (sender instanceof Player) {
+            sender.sendMessage(ChatColor.GREEN + "Telepowort reloaded!");
             return true;
         }
         return true;
