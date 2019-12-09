@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Set;
 import java.util.UUID;
 
 public class PlayerConfig {
@@ -18,7 +19,7 @@ public class PlayerConfig {
     public PlayerConfig(Player player) {
         this.player = player;
         this.playerID = this.player.getUniqueId();
-        playerConfigFile = new File("plugins/Telepowort/data/" + playerID);
+        playerConfigFile = new File("plugins/Telepowort/players/" + playerID + ".yml");
         playerConfig = YamlConfiguration.loadConfiguration(playerConfigFile);
     }
 
@@ -44,13 +45,14 @@ public class PlayerConfig {
         }
     }
 
-    public FileConfiguration PlayerConfig() {
+    public FileConfiguration getPlayerConfig() {
         return playerConfig;
     }
 
     public void savePlayerConfig() {
         try {
-            PlayerConfig().save(playerConfigFile);
+            createPlayerConfigDefaults();
+            getPlayerConfig().save(playerConfigFile);
         } catch (IOException exception) {
             System.out.println("Failed to save Player config for " + this.playerID + ".\n");
             exception.printStackTrace();
@@ -65,13 +67,39 @@ public class PlayerConfig {
         return playerConfig.getString("Nickname");
     }
 
-    public void setNickname(String nickname) {
+    public boolean setNickname(String nickname) {
         playerConfig.set("Nickname", nickname);
         System.out.println("Player " + this.player.getDisplayName() + "changed their nickname to " + nickname);
+
+        return playerConfig.get("Nickname") != null;
     }
 
     public Location getLastTeleportLocation() {
         return playerConfig.getLocation("Last-Teleport-Location");
     }
 
+    public void setLastTeleportLocation(Location LastLeleportLocation) {
+        playerConfig.set("Last-Teleport-Location", LastLeleportLocation);
+    }
+
+    public Set<String> getHomes() {
+        return playerConfig.getConfigurationSection("Homes").getKeys(false);
+    }
+
+    public boolean addHome(Location newhome) {
+        playerConfig.set("Homes." + newhome + ".world", newhome.getWorld());
+        playerConfig.set("Homes." + newhome + ".x", newhome.getBlockX());
+        playerConfig.set("Homes." + newhome + ".y", newhome.getBlockY());
+        playerConfig.set("Homes." + newhome + ".z", newhome.getBlockZ());
+        playerConfig.set("Homes." + newhome + ".yaw", newhome.getYaw());
+        playerConfig.set("Homes." + newhome + ".pitch", newhome.getPitch());
+
+        return playerConfig.get("Home" + newhome) != null;
+    }
+
+    public boolean delHome(Location newhome) {
+        playerConfig.set("Homes." + newhome, null);
+
+        return playerConfig.get("Homes." + newhome) == null;
+    }
 }
