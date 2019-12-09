@@ -20,6 +20,12 @@ public class home implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String homeName = null;
+        Set<String> homeMap = null;
+
+        if (!(sender instanceof Player)) {
+            sender.sendMessage("Only players can invoke that command!");
+            return true;
+        }
 
         Player player = (Player) sender;
 
@@ -28,9 +34,13 @@ public class home implements CommandExecutor {
         }
         // LIST WARPS
         if (args.length == 0) {
-            Set<String> homeMap = this.plugin.getConfig().getConfigurationSection("Homes." + player.getUniqueId().toString()).getKeys(false);
+            try {
+                homeMap = this.plugin.getConfig().getConfigurationSection("Homes." + player.getUniqueId().toString()).getKeys(false);
+            } catch (NullPointerException e) {
+                sender.sendMessage(ChatColor.RED + "You have no homes yet!");
+            }
             StringBuilder homeBuilder = new StringBuilder();
-            homeBuilder.append(ChatColor.GOLD + "HOMES: ");
+            homeBuilder.append(ChatColor.GOLD + "Wolf prisons: ");
             homeMap.forEach((ahome) -> homeBuilder.append(ChatColor.YELLOW + "\n").append(ahome));
 
             sender.sendMessage(homeBuilder.toString());
@@ -41,10 +51,6 @@ public class home implements CommandExecutor {
             homeName = args[0];
         }
 
-        if (!(sender instanceof Player)) {
-            sender.sendMessage("Only players can invoke that command!");
-            return true;
-        }
 
 
         if (this.plugin.getConfig().getConfigurationSection("Homes." + player.getUniqueId().toString()).contains(homeName)) { // DO THIS IF WARP EXISTS

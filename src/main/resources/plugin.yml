@@ -1,42 +1,64 @@
 name: Telepowort
 author: Lykio_Frostpaw
 main: dreamers.lykiofrostpaw.plugin.Telepowort
-version: 0.1b
+version: 0.9r
 api-version: 1.14
 commands:
   home:
     usage: /home <home>
     description: Teleports you to home you set previously.
+    aliases:
+      - h
   delhome:
     usage: /delhome <home>
     description: Deletes a home.
+    aliases:
+      - delh
   sethome:
     usage: /sethome <name>
     description: Private warp.
+    aliases:
+      - seth
   tpa:
     usage: /tpa <player>
     description: Teleports you to a player with permission.
+    aliases:
+      - tp
   tpahere:
     usage: /tpahere <player>
     description: Teleports a player to you with permission.
+    aliases:
+      - tph
   tpaccept:
     usage: /tpaccept
     description: Permits a tpa or tpahere.
+    aliases:
+      - tpa
   tpadecline:
     usage: /tpadecline
     description: Won't permit a tpa or tpahere.
+    aliases:
+      - tpnope
   warp:
     usage: /warp <warp>
     description: Teleports the player to a warp.
+    aliases:
+      - w
   setwarp:
     usage: /setwarp <name>
     description: https://media.tenor.com/images/fa3143e89d76490bdf83835cbd3d9fed/tenor.gif
+    aliases:
+      - setw
   delwarp:
     usage: /delwarp <warp>
     description: Deletes a warp.
+    aliases:
+      - delw
   nickname:
     usage: /nick <nickname>
     description: Gives you a nickname.
+    aliases:
+      - nick
   ping:
     usage: /ping
     description: Currently pongs - will eventually actually return latency. One day.

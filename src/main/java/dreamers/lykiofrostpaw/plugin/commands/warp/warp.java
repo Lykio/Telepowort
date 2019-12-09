@@ -20,20 +20,7 @@ public class warp implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String warpName = null;
-        // LIST WARPS
-        if (args.length == 0) {
-            Set<String> warpMap = this.plugin.getConfig().getConfigurationSection("Warps").getKeys(false);
-            StringBuilder warpBuilder = new StringBuilder();
-            warpBuilder.append(ChatColor.GOLD + "WARPS: ");
-            warpMap.forEach((warp) -> warpBuilder.append(ChatColor.YELLOW + "\n").append(warp));
-
-            sender.sendMessage(warpBuilder.toString());
-            return true;
-        }
-
-        if (args.length != 0) {
-            warpName = args[0];
-        }
+        Set<String> warpMap = null;
 
         if (!(sender instanceof Player)) {
             sender.sendMessage("Only players can invoke that command!");
@@ -41,6 +28,26 @@ public class warp implements CommandExecutor {
         }
 
         Player player = (Player) sender;
+
+        if (args.length != 0) {
+            warpName = args[0];
+        }
+
+        // LIST WARPS
+        if (args.length == 0) {
+            try {
+                warpMap = this.plugin.getConfig().getConfigurationSection("Warps").getKeys(false);
+            } catch (NullPointerException e) {
+                sender.sendMessage(ChatColor.RED + "There are no warps yet!");
+            }
+            StringBuilder warpBuilder = new StringBuilder();
+            warpBuilder.append(ChatColor.GOLD + "SUPER  G A Y  Warps");
+            warpMap.forEach((warp) -> warpBuilder.append(ChatColor.YELLOW + "\n").append(warp));
+
+            sender.sendMessage(warpBuilder.toString());
+            return true;
+        }
+
 
         if (this.plugin.getConfig().getConfigurationSection("Warps").contains(warpName)) { // DO THIS IF WARP EXISTS
 
