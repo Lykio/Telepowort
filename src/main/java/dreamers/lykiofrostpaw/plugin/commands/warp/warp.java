@@ -27,11 +27,12 @@ public class warp implements CommandExecutor {
             return true;
         }
 
-        Player player = (Player) sender;
-
         if (args.length != 0) {
             warpName = args[0];
         }
+
+        Player player = (Player) sender;
+
 
         // LIST WARPS
         if (args.length == 0) {

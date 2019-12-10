@@ -3,6 +3,7 @@ package dreamers.lykiofrostpaw.plugin;
 import dreamers.lykiofrostpaw.plugin.commands.home.delhome;
 import dreamers.lykiofrostpaw.plugin.commands.home.home;
 import dreamers.lykiofrostpaw.plugin.commands.home.sethome;
+import dreamers.lykiofrostpaw.plugin.commands.miscellaneous.back;
 import dreamers.lykiofrostpaw.plugin.commands.miscellaneous.nickname;
 import dreamers.lykiofrostpaw.plugin.commands.miscellaneous.ping;
 import dreamers.lykiofrostpaw.plugin.commands.miscellaneous.treload;
@@ -13,8 +14,8 @@ import dreamers.lykiofrostpaw.plugin.commands.tpa.tpahere;
 import dreamers.lykiofrostpaw.plugin.commands.warp.delwarp;
 import dreamers.lykiofrostpaw.plugin.commands.warp.setwarp;
 import dreamers.lykiofrostpaw.plugin.commands.warp.warp;
-import dreamers.lykiofrostpaw.plugin.listeners.NameListener;
-import dreamers.lykiofrostpaw.plugin.listeners.PlayerLoginListener;
+import dreamers.lykiofrostpaw.plugin.listeners.PlayerCommandPreprocess;
+import dreamers.lykiofrostpaw.plugin.listeners.PlayerLogin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
@@ -43,13 +44,12 @@ public final class Telepowort extends JavaPlugin {
         this.getCommand("ping").setExecutor(new ping(this));
         this.getCommand("nickname").setExecutor(new nickname(this));
         this.getCommand("treload").setExecutor(new treload(this));
-        //this.getCommand("back").setExecutor(new back(this));
+        this.getCommand("back").setExecutor(new back(this));
 
         // For nickname functionality
-        new NameListener(this);
-        new PlayerLoginListener(this);
+        new PlayerLogin(this);
+        new PlayerCommandPreprocess(this);
     }
-
 
     @Override
     public void onLoad() {

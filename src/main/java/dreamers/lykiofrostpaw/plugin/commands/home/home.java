@@ -51,8 +51,6 @@ public class home implements CommandExecutor {
             homeName = args[0];
         }
 
-
-
         if (this.plugin.getConfig().getConfigurationSection("Homes." + player.getUniqueId().toString()).contains(homeName)) { // DO THIS IF WARP EXISTS
 
             String playerWorld = this.plugin.getConfig().getConfigurationSection("Homes." + player.getUniqueId().toString()).getString(homeName + ".WORLD");
