@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Set;
 import java.util.UUID;
 
 public class PlayerConfig {
@@ -75,6 +76,7 @@ public class PlayerConfig {
 
     public void setNickname(String nickname) {
         playerConfig.set("Nickname", nickname);
+        savePlayerConfig();
         System.out.println("Player " + player.getDisplayName() + "changed their nickname to " + nickname);
     }
 
@@ -96,6 +98,23 @@ public class PlayerConfig {
         playerConfig.set("Last-Teleport-Location.z", loc.getBlockZ());
         playerConfig.set("Last-Teleport-Location.yaw", loc.getYaw());
         playerConfig.set("Last-Teleport-Location.pitch", loc.getPitch());
+        savePlayerConfig();
     }
 
+    public Set<String> getHomes() {
+        return playerConfig.getConfigurationSection("Homes").getKeys(false);
+    }
+
+    public void addHome(String home, Location loc) {
+        playerConfig.set("Homes." + home + ".world", loc.getWorld());
+        playerConfig.set("Homes." + home + ".x", loc.getBlockX());
+        playerConfig.set("Homes." + home + ".y", loc.getBlockY());
+        playerConfig.set("Homes." + home + ".z", loc.getBlockZ());
+        playerConfig.set("Homes." + home + ".yaw", loc.getYaw());
+        playerConfig.set("Homes." + home + ".pitch", loc.getPitch());
+    }
+
+    public void delHome(String home) {
+        playerConfig.set("Homes." + home, null);
+    }
 }

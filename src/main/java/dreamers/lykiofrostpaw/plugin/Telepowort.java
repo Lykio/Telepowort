@@ -14,8 +14,8 @@ import dreamers.lykiofrostpaw.plugin.commands.tpa.tpahere;
 import dreamers.lykiofrostpaw.plugin.commands.warp.delwarp;
 import dreamers.lykiofrostpaw.plugin.commands.warp.setwarp;
 import dreamers.lykiofrostpaw.plugin.commands.warp.warp;
-import dreamers.lykiofrostpaw.plugin.listeners.LastLocationListener;
-import dreamers.lykiofrostpaw.plugin.listeners.NicknameListener;
+import dreamers.lykiofrostpaw.plugin.listeners.PlayerCommandPreprocess;
+import dreamers.lykiofrostpaw.plugin.listeners.PlayerLogin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
@@ -47,8 +47,8 @@ public final class Telepowort extends JavaPlugin {
         this.getCommand("back").setExecutor(new back(this));
 
         // For nickname functionality
-        new NicknameListener(this);
-        new LastLocationListener(this);
+        new PlayerLogin(this);
+        new PlayerCommandPreprocess(this);
     }
 
     @Override
