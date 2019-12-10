@@ -27,13 +27,10 @@ public class back implements CommandExecutor, Listener {
 
         Player player = (Player) sender;
 
-
         return true;
     }
 
     @EventHandler
-    public void onHome(PlayerTeleportEvent event) {
-        this.event = event;
-        System.out.println("Fired");
+    public void onTeleport(PlayerTeleportEvent event) {
     }
 }

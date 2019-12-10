@@ -37,7 +37,9 @@ public class PlayerConfig {
     }
 
     public void createPlayerConfigDefaults() {
+        createPlayerConfig();
         if (playerConfigFile.length() <= 0) {
+            playerConfig.set("Acknowledged", true);
             playerConfig.set("Name", player.getName());
             playerConfig.set("Nickname", null);
             playerConfig.set("Last-Teleport-Location", null);
@@ -57,6 +59,10 @@ public class PlayerConfig {
             System.out.println("Failed to save Player config for " + this.playerID + ".\n");
             exception.printStackTrace();
         }
+    }
+
+    public boolean exists() {
+        return playerConfig.getBoolean("Acknowledged");
     }
 
     public String getName() {
