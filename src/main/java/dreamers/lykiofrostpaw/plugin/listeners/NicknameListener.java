@@ -11,13 +11,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
-public class NameListener implements Listener {
+public class NicknameListener implements Listener {
 
     private final Plugin plugin;
     private FileConfiguration nickConfig = null;
     private File nickConfigFile;
 
-    public NameListener(Plugin plugin) {
+    public NicknameListener(Plugin plugin) {
         this.plugin = plugin;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }

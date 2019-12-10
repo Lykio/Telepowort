@@ -1,0 +1,25 @@
+Acknowledged: true
+Name: Lykio_Frostpaw
+Nickname: Cookie
+Last-Teleport-Location:
+  world: cyka
+  x: 100
+  y: 70
+  z: -900
+  yaw: 0
+  pitch: 0
+Homes:
+  onehome:
+    world: cyka
+    x: 900
+    y: 55
+    z: 500
+    yaw: -90
+    pitch: 0
+  twohome:
+    world: blyat
+    x: 0
+    y: 11
+    z: 0
+    yaw: 0
+    pitch: 0
