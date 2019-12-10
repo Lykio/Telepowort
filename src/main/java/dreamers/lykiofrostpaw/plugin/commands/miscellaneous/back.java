@@ -39,6 +39,9 @@ public class back implements CommandExecutor, Listener {
             } else {
                 player.sendMessage(ChatColor.RED + "You have not been teleported previously.");
             }
+        } else {
+            playerConfig.createPlayerConfig();
+            player.sendMessage(ChatColor.RED + "You have not been teleported previously.");
         }
 
         return true;

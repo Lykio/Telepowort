@@ -22,8 +22,6 @@ commands:
   tpa:
     usage: /tpa <player>
     description: Teleports you to a player with permission.
-    aliases:
-      - tp
   tpahere:
     usage: /tpahere <player>
     description: Teleports a player to you with permission.
@@ -33,12 +31,12 @@ commands:
     usage: /tpaccept
     description: Permits a tpa or tpahere.
     aliases:
-      - tpa
+      - tpy
   tpadecline:
     usage: /tpadecline
     description: Won't permit a tpa or tpahere.
     aliases:
-      - tpnope
+      - tpn
   warp:
     usage: /warp <warp>
     description: Teleports the player to a warp.
@@ -65,3 +63,8 @@ commands:
   treload:
     usage: /treload
     description: Reloads telepowort.
+  back:
+    usage: /back
+    description: Will send you back to where you were prior to being teleported.
+    aliases:
+      - b

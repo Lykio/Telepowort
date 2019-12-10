@@ -11,12 +11,12 @@ import org.bukkit.event.player.PlayerLoginEvent;
 public class LastLocationListener implements Listener {
     private final Telepowort plugin;
     private PlayerConfig pc;
-    private String[] cache = {
+    private String[] proc = {
             "back",
             "home",
             "warp",
             "tpa",
-            "tp"
+            "tpy"
     };
 
     public LastLocationListener(Telepowort plugin) {
@@ -33,9 +33,9 @@ public class LastLocationListener implements Listener {
     @EventHandler // Updating their config on command invoke
     public void onInvoke(PlayerCommandPreprocessEvent e) {
         pc = new PlayerConfig(e.getPlayer());
-        if (e.getMessage().equals(cache[0]) || e.getMessage().equals(cache[1]) ||
-                e.getMessage().equals(cache[2]) || e.getMessage().equals(cache[3]) ||
-                e.getMessage().equals(cache[4])) {
+        if (e.getMessage().equals(proc[0]) || e.getMessage().equals(proc[1]) ||
+                e.getMessage().equals(proc[2]) || e.getMessage().equals(proc[3]) ||
+                e.getMessage().equals(proc[4])) {
             Location loc = e.getPlayer().getLocation();
 
             pc.getPlayerConfig().set("Last-Teleport-Location.world", loc.getWorld().toString());
