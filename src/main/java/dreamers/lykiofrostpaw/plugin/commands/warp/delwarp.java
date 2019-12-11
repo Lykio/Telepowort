@@ -1,6 +1,7 @@
 package dreamers.lykiofrostpaw.plugin.commands.warp;
 
 import dreamers.lykiofrostpaw.plugin.Telepowort;
+import dreamers.lykiofrostpaw.plugin.commands.WarpConfig;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -9,7 +10,7 @@ import org.bukkit.entity.Player;
 
 public class delwarp implements CommandExecutor {
     private final Telepowort plugin;
-    private String warpName = null;
+    private String warp = null;
 
     public delwarp(Telepowort plugin) {
         this.plugin = plugin;
@@ -18,7 +19,7 @@ public class delwarp implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length != 0) {
-            warpName = args[0];
+            warp = args[0];
         }
 
         if (!(sender instanceof Player)) {
@@ -26,26 +27,27 @@ public class delwarp implements CommandExecutor {
             return true;
         }
 
-        if (warpName == null) {
+        if (warp == null) {
             sender.sendMessage(ChatColor.RED + "You need to specify a warp.");
             return true;
         }
 
         Player player = (Player) sender;
+        WarpConfig warpConfig = new WarpConfig(plugin);
 
-        if (this.plugin.getConfig().getConfigurationSection("Warps").get(warpName) == null) {
+        if (!warpConfig.getWarps().contains(warp)) {
             player.sendMessage(ChatColor.RED + "That warp doesn't exist!");
             return true;
         }
 
-        if (player.getUniqueId().toString().equals(this.plugin.getConfig().getConfigurationSection("Warps").get(warpName + ".UUID"))) {
-            this.plugin.getConfig().set("Warps." + warpName, null);
-            this.plugin.saveConfig();
-            player.sendMessage(ChatColor.RED + "Deleted " + ChatColor.AQUA + warpName + ChatColor.RED + ".");
+        if (warpConfig.getWarps().contains(warp)) {
+            warpConfig.delWarp(warp, player.getName());
+            player.sendMessage(ChatColor.RED + "Deleted " + ChatColor.AQUA + warp + ChatColor.RED + ".");
             return true;
         } else {
             player.sendMessage(ChatColor.RED + "That's not your warp!");
             return true;
         }
+
     }
 }

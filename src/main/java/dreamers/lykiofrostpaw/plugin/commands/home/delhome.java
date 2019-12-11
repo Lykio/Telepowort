@@ -1,6 +1,7 @@
 package dreamers.lykiofrostpaw.plugin.commands.home;
 
 import dreamers.lykiofrostpaw.plugin.Telepowort;
+import dreamers.lykiofrostpaw.plugin.commands.PlayerConfig;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -9,7 +10,7 @@ import org.bukkit.entity.Player;
 
 public class delhome implements CommandExecutor {
     private final Telepowort plugin;
-    private String homeName = null;
+    private String home = null;
 
     public delhome(Telepowort plugin) {
         this.plugin = plugin;
@@ -17,36 +18,26 @@ public class delhome implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length != 0) {
-            homeName = args[0];
-        }
-
         if (!(sender instanceof Player)) {
             sender.sendMessage(ChatColor.RED + "You should be a player to delete home.");
             return true;
         }
 
+        if (args.length != 0) {
+            home = args[0];
+        }
+
         Player player = (Player) sender;
+        PlayerConfig playerConfig = new PlayerConfig(player);
 
-        if (this.plugin.getConfig().getConfigurationSection("Homes." + player.getUniqueId().toString()) == null) {
-            this.plugin.getConfig().createSection("Homes." + player.getUniqueId().toString());
-        }
-
-        if (homeName == null) {
-            sender.sendMessage(ChatColor.RED + "You need to specify a home.");
+        if (playerConfig.getHomes().contains(home)) {
+            playerConfig.delHome(home);
+            player.sendMessage(ChatColor.RED + "Deleted " + ChatColor.AQUA + home + ChatColor.RED + ".");
             return true;
-        }
-
-
-        if (this.plugin.getConfig().getConfigurationSection("Homes." + player.getUniqueId().toString()).get(homeName) == null) {
+        } else {
             player.sendMessage(ChatColor.RED + "That home doesn't exist!");
-            return true;
         }
 
-        this.plugin.getConfig().getConfigurationSection("Homes." + player.getUniqueId().toString()).set(homeName, null);
-        this.plugin.saveConfig();
-        player.sendMessage(ChatColor.RED + "Deleted " + ChatColor.AQUA + homeName + ChatColor.RED + ".");
-
-        return true;
+        return false;
     }
 }

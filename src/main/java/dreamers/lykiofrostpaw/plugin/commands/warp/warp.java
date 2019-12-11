@@ -1,8 +1,8 @@
 package dreamers.lykiofrostpaw.plugin.commands.warp;
 
 import dreamers.lykiofrostpaw.plugin.Telepowort;
+import dreamers.lykiofrostpaw.plugin.commands.WarpConfig;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -19,53 +19,41 @@ public class warp implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        String warpName = null;
-        Set<String> warpMap = null;
+        String warp = null;
 
         if (!(sender instanceof Player)) {
             sender.sendMessage("Only players can invoke that command!");
-            return true;
         }
 
         if (args.length != 0) {
-            warpName = args[0];
+            warp = args[0];
         }
 
         Player player = (Player) sender;
-
+        WarpConfig warpConfig = new WarpConfig(plugin);
 
         // LIST WARPS
         if (args.length == 0) {
             try {
-                warpMap = this.plugin.getConfig().getConfigurationSection("Warps").getKeys(false);
+                Set<String> warpMap = warpConfig.getWarps();
+                StringBuilder warpBuilder = new StringBuilder();
+
+                warpBuilder.append(ChatColor.GOLD + "SUPER  G A Y  Warps");
+                warpMap.forEach((w) -> warpBuilder.append(ChatColor.YELLOW + "\n").append(w));
+
+                sender.sendMessage(warpBuilder.toString());
             } catch (NullPointerException e) {
                 sender.sendMessage(ChatColor.RED + "There are no warps yet!");
             }
-            StringBuilder warpBuilder = new StringBuilder();
-            warpBuilder.append(ChatColor.GOLD + "SUPER  G A Y  Warps");
-            warpMap.forEach((warp) -> warpBuilder.append(ChatColor.YELLOW + "\n").append(warp));
-
-            sender.sendMessage(warpBuilder.toString());
-            return true;
         }
 
 
-        if (this.plugin.getConfig().getConfigurationSection("Warps").contains(warpName)) { // DO THIS IF WARP EXISTS
-
-            String playerWorld = this.plugin.getConfig().getConfigurationSection("Warps").getString(warpName + ".WORLD");
-
-            player.teleport(new Location(
-                    this.plugin.getServer().getWorld(playerWorld),
-                    this.plugin.getConfig().getConfigurationSection("Warps").getInt(warpName + ".X"),
-                    this.plugin.getConfig().getConfigurationSection("Warps").getInt(warpName + ".Y"),
-                    this.plugin.getConfig().getConfigurationSection("Warps").getInt(warpName + ".Z"),
-                    this.plugin.getConfig().getConfigurationSection("Warps").getInt(warpName + ".YAW"),
-                    this.plugin.getConfig().getConfigurationSection("Warps").getInt(warpName + ".PITCH")
-            ));
-            return true;
+        if (warpConfig.getWarps().contains(warp)) { // DO THIS IF WARP EXISTS
+            player.teleport(warpConfig.getWarp(warp));
         } else {
             player.sendMessage(ChatColor.RED + "That warp doesn't exist!");
-            return false;
         }
+
+        return true;
     }
 }

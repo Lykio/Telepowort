@@ -1,5 +1,7 @@
 package dreamers.lykiofrostpaw.plugin;
 
+import dreamers.lykiofrostpaw.plugin.commands.RequestConfig;
+import dreamers.lykiofrostpaw.plugin.commands.WarpConfig;
 import dreamers.lykiofrostpaw.plugin.commands.home.delhome;
 import dreamers.lykiofrostpaw.plugin.commands.home.home;
 import dreamers.lykiofrostpaw.plugin.commands.home.sethome;
@@ -20,9 +22,18 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 
 public final class Telepowort extends JavaPlugin {
+    private WarpConfig warpConfig = new WarpConfig(this);
+    private RequestConfig requestConfig = new RequestConfig(this);
 
     @Override
     public void onEnable() {
+        if (!warpConfig.exists()) {
+            warpConfig.createWarpConfig();
+        }
+
+        if (!requestConfig.exists()) {
+            requestConfig.createWarpConfig();
+        }
 
         // Home
         this.getCommand("home").setExecutor(new home(this));
@@ -46,7 +57,7 @@ public final class Telepowort extends JavaPlugin {
         this.getCommand("treload").setExecutor(new treload(this));
         this.getCommand("back").setExecutor(new back(this));
 
-        // For nickname functionality
+        // Listeners
         new PlayerLogin(this);
         new PlayerCommandPreprocess(this);
     }

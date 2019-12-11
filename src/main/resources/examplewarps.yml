@@ -1,0 +1,17 @@
+Warps:
+  uwu:
+    creator: player_uuid
+    world: cyka
+    x: 100
+    y: 70
+    z: -900
+    yaw: 0
+    pitch: 0
+  aaa:
+    creator: player_uuid2
+    world: blyat
+    x: 0
+    y: 11
+    z: 0
+    yaw: 0
+    pitch: 0

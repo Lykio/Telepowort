@@ -1,46 +1,16 @@
 package dreamers.lykiofrostpaw.plugin.commands.miscellaneous;
 
 import dreamers.lykiofrostpaw.plugin.Telepowort;
+import dreamers.lykiofrostpaw.plugin.commands.PlayerConfig;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-
-import java.io.File;
-import java.io.IOException;
 
 // IT BEGINS
 public class nickname implements CommandExecutor {
     private final Telepowort plugin;
-    private FileConfiguration nickConfig = null;
-    private File nickConfigFile = null;
-
-    private void reloadNicknames() {
-        nickConfigFile = new File(this.plugin.getDataFolder(), "nickname.yml");
-        nickConfig = YamlConfiguration.loadConfiguration(nickConfigFile);
-    }
-
-    public FileConfiguration getNicknames() {
-        if (nickConfig == null) {
-            reloadNicknames();
-        }
-        return nickConfig;
-    }
-
-    public void saveNicknames() {
-        if (nickConfigFile == null) {
-            nickConfigFile = new File(this.plugin.getDataFolder(), "nickname.yml");
-        }
-
-        try {
-            nickConfig.save(nickConfigFile);
-        } catch (IOException e) {
-            this.plugin.getLogger().severe(e.getMessage());
-        }
-    }
 
     public nickname(Telepowort plugin) {
         this.plugin = plugin;
@@ -48,29 +18,32 @@ public class nickname implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        String name = null;
+
         if (!(sender instanceof Player)) {
             sender.sendMessage(ChatColor.RED + "Only players can use this command.");
             return true;
         }
 
+        if (args.length != 0) {
+            name = args[0].replaceAll("&", "§") + ChatColor.RESET;
+        }
+
         Player player = (Player) sender;
+        PlayerConfig playerConfig = new PlayerConfig(player);
 
         if (args.length == 0) {
             player.sendMessage(ChatColor.RED + "You didn't specify a nickname.");
             return true;
         }
-        if (args.length > 1) {
+
+        if (args.length >= 2) {
             player.sendMessage(ChatColor.RED + "Nicknames can't have spaces.");
             return true;
         }
 
-        String name = args[0].replaceAll("&", "§") + ChatColor.RESET;
-
-        FileConfiguration nicknames = getNicknames();
-
-        nicknames.set(player.getName(), name);
-        saveNicknames();
-        player.setDisplayName((String) nicknames.get(player.getName()));
+        playerConfig.setNickname(name);
+        player.setDisplayName(name);
         player.sendMessage("Changed your nickname. ÒwÓ");
         return true;
     }

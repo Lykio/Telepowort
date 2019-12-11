@@ -6,10 +6,13 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class PlayerCommandPreprocess implements Listener {
     private final Telepowort plugin;
     private PlayerConfig pc;
-    private String ="back"+"warp"+"home"+y
+    private List procs = Arrays.asList("back", "back", "warp", "w", "home", "h", "tpa", "tpaccept");
 
     public PlayerCommandPreprocess(Telepowort plugin) {
         this.plugin = plugin;
@@ -19,7 +22,7 @@ public class PlayerCommandPreprocess implements Listener {
     public void onInvoke(PlayerCommandPreprocessEvent e) {
 
         pc = new PlayerConfig(e.getPlayer());
-        if (proc.toString().contains(e.getMessage())) {
+        if (procs.contains(e.getMessage())) {
             pc.setLastTeleportLocation(e.getPlayer().getLocation());
         }
     }

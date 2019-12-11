@@ -1,18 +1,16 @@
 package dreamers.lykiofrostpaw.plugin.commands.tpa;
 
 import dreamers.lykiofrostpaw.plugin.Telepowort;
+import dreamers.lykiofrostpaw.plugin.commands.PlayerConfig;
+import dreamers.lykiofrostpaw.plugin.commands.RequestConfig;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 
-import java.util.HashMap;
-
-public class tpa implements CommandExecutor, Listener {
+public class tpa implements CommandExecutor {
     private final Telepowort plugin;
-    private HashMap<Player, Player> tpaQ = new HashMap<Player, Player>();
 
     public tpa(Telepowort plugin) {
         this.plugin = plugin;
@@ -20,18 +18,24 @@ public class tpa implements CommandExecutor, Listener {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        String name = null;
+
         if (!(sender instanceof Player)) {
             sender.sendMessage("Only players can invoke that command!");
             return true;
         }
 
-        String playerName = null;
-        Player player = (Player) sender;
+        if (args.length != 0) {
+            name = args[0];
+        }
 
-        if (args.length == 0) {
+        Player player = (Player) sender;
+        PlayerConfig playerConfig = new PlayerConfig(player);
+        RequestConfig requestConfig = new RequestConfig(plugin);
+
+        if (plugin.getServer().getOnlinePlayers().contains(player)) {
             player.sendMessage(ChatColor.RED + "You can only teleport to existing online players!");
-        } else {
-            playerName = args[0];
+            return true;
         }
 
 

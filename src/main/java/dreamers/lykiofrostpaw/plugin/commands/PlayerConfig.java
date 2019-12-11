@@ -39,7 +39,7 @@ public class PlayerConfig {
     }
 
     private void createPlayerConfigDefaults() {
-        if (playerConfigFile.length() <= 0) {
+        if (playerConfigFile.length() == 0) {
             playerConfig.set("Acknowledged", true);
             playerConfig.set("Name", player.getName());
             playerConfig.set("Nickname", null);
@@ -92,7 +92,7 @@ public class PlayerConfig {
     }
 
     public void setLastTeleportLocation(Location loc) {
-        playerConfig.set("Last-Teleport-Location.world", loc.getWorld());
+        playerConfig.set("Last-Teleport-Location.world", loc.getWorld().getName());
         playerConfig.set("Last-Teleport-Location.x", loc.getBlockX());
         playerConfig.set("Last-Teleport-Location.y", loc.getBlockY());
         playerConfig.set("Last-Teleport-Location.z", loc.getBlockZ());
@@ -105,16 +105,29 @@ public class PlayerConfig {
         return playerConfig.getConfigurationSection("Homes").getKeys(false);
     }
 
+    public Location getHome(String home) {
+        return new Location(
+                Bukkit.getWorld(playerConfig.getString("Homes." + home + ".world")),
+                playerConfig.getInt("Homes." + home + ".x"),
+                playerConfig.getInt("Homes." + home + ".y"),
+                playerConfig.getInt("Homes." + home + ".z"),
+                playerConfig.getInt("Homes." + home + ".yaw"),
+                playerConfig.getInt("Homes." + home + ".pitch")
+        );
+    }
+
     public void addHome(String home, Location loc) {
-        playerConfig.set("Homes." + home + ".world", loc.getWorld());
+        playerConfig.set("Homes." + home + ".world", loc.getWorld().getName());
         playerConfig.set("Homes." + home + ".x", loc.getBlockX());
         playerConfig.set("Homes." + home + ".y", loc.getBlockY());
         playerConfig.set("Homes." + home + ".z", loc.getBlockZ());
         playerConfig.set("Homes." + home + ".yaw", loc.getYaw());
         playerConfig.set("Homes." + home + ".pitch", loc.getPitch());
+        savePlayerConfig();
     }
 
     public void delHome(String home) {
         playerConfig.set("Homes." + home, null);
+        savePlayerConfig();
     }
 }

@@ -1,8 +1,8 @@
 package dreamers.lykiofrostpaw.plugin.commands.home;
 
 import dreamers.lykiofrostpaw.plugin.Telepowort;
+import dreamers.lykiofrostpaw.plugin.commands.PlayerConfig;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -19,54 +19,40 @@ public class home implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        String homeName = null;
-        Set<String> homeMap = null;
+        String home = null;
+        Set<String> homes = null;
 
         if (!(sender instanceof Player)) {
             sender.sendMessage("Only players can invoke that command!");
-            return true;
-        }
-
-        Player player = (Player) sender;
-
-        if (this.plugin.getConfig().getConfigurationSection("Homes." + player.getUniqueId().toString()) == null) {
-            this.plugin.getConfig().createSection("Homes." + player.getUniqueId().toString());
-        }
-        // LIST WARPS
-        if (args.length == 0) {
-            try {
-                homeMap = this.plugin.getConfig().getConfigurationSection("Homes." + player.getUniqueId().toString()).getKeys(false);
-            } catch (NullPointerException e) {
-                sender.sendMessage(ChatColor.RED + "You have no homes yet!");
-            }
-            StringBuilder homeBuilder = new StringBuilder();
-            homeBuilder.append(ChatColor.GOLD + "Wolf prisons: ");
-            homeMap.forEach((ahome) -> homeBuilder.append(ChatColor.YELLOW + "\n").append(ahome));
-
-            sender.sendMessage(homeBuilder.toString());
-            return true;
         }
 
         if (args.length != 0) {
-            homeName = args[0];
+            home = args[0];
         }
 
-        if (this.plugin.getConfig().getConfigurationSection("Homes." + player.getUniqueId().toString()).contains(homeName)) { // DO THIS IF WARP EXISTS
+        Player player = (Player) sender;
+        PlayerConfig playerConfig = new PlayerConfig(player);
 
-            String playerWorld = this.plugin.getConfig().getConfigurationSection("Homes." + player.getUniqueId().toString()).getString(homeName + ".WORLD");
+        // LIST WARPS IF ARGS EMPTY
+        if (args.length == 0) {
+            if (playerConfig.getPlayerConfig().get("Homes") != null) {
+                homes = playerConfig.getHomes();
+            } else {
+                player.sendMessage(ChatColor.RED + "You have no homes yet!");
+            }
 
-            player.teleport(new Location(
-                    this.plugin.getServer().getWorld(playerWorld),
-                    this.plugin.getConfig().getConfigurationSection("Homes." + player.getUniqueId().toString()).getInt(homeName + ".X"),
-                    this.plugin.getConfig().getConfigurationSection("Homes." + player.getUniqueId().toString()).getInt(homeName + ".Y"),
-                    this.plugin.getConfig().getConfigurationSection("Homes." + player.getUniqueId().toString()).getInt(homeName + ".Z"),
-                    this.plugin.getConfig().getConfigurationSection("Homes." + player.getUniqueId().toString()).getInt(homeName + ".YAW"),
-                    this.plugin.getConfig().getConfigurationSection("Homes." + player.getUniqueId().toString()).getInt(homeName + ".PITCH")
-            ));
-            return true;
+            StringBuilder homeBuilder = new StringBuilder();
+            homeBuilder.append(ChatColor.GOLD + "Wolf prisons: ");
+            homes.forEach((ahome) -> homeBuilder.append(ChatColor.YELLOW + "\n").append(ahome));
+            player.sendMessage(homeBuilder.toString());
+        }
+
+        if (playerConfig.getHomes().contains(home)) { // DO THIS IF WARP EXISTS
+            player.teleport(playerConfig.getHome(home));
         } else {
             player.sendMessage(ChatColor.RED + "That home doesn't exist!");
-            return false;
         }
+
+        return true;
     }
 }
