@@ -28,7 +28,6 @@ public class setwarp implements CommandExecutor {
             warp = args[0];
         }
 
-
         Player player = (Player) sender;
         WarpConfig warpConfig = new WarpConfig(plugin);
 
@@ -37,14 +36,8 @@ public class setwarp implements CommandExecutor {
             return true;
         }
 
-        if (this.plugin.getConfig().getConfigurationSection("Warps") == null) {
-            this.plugin.getConfig().createSection("Warps");
-        }
-
-
-
-
-        return false;
+        warpConfig.addWarp(warp, player.getName(), player.getLocation());
+        return warpConfig.getWarp(warp) != null;
     }
 
 }

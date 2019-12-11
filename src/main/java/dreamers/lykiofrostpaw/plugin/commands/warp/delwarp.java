@@ -35,18 +35,17 @@ public class delwarp implements CommandExecutor {
         Player player = (Player) sender;
         WarpConfig warpConfig = new WarpConfig(plugin);
 
-        if (!warpConfig.getWarps().contains(warp)) {
-            player.sendMessage(ChatColor.RED + "That warp doesn't exist!");
-            return true;
-        }
-
         if (warpConfig.getWarps().contains(warp)) {
-            warpConfig.delWarp(warp, player.getName());
-            player.sendMessage(ChatColor.RED + "Deleted " + ChatColor.AQUA + warp + ChatColor.RED + ".");
-            return true;
+            if (warpConfig.isCreator(warp, player.getName())) {
+                warpConfig.delWarp(warp, player.getName());
+                player.sendMessage(ChatColor.RED + "Deleted " + ChatColor.AQUA + warp + ChatColor.RED + ".");
+                return true;
+            } else {
+                player.sendMessage(ChatColor.RED + "That's not your warp!");
+                return true;
+            }
         } else {
-            player.sendMessage(ChatColor.RED + "That's not your warp!");
-            return true;
+            player.sendMessage(ChatColor.RED + "That warp doesn't exist.");
         }
 
     }

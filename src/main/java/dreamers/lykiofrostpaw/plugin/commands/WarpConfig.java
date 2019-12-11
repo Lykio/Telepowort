@@ -61,6 +61,18 @@ public class WarpConfig {
         }
     }
 
+    public boolean isCreator(String warp, String player) {
+        try {
+            if (warpConfig.getString("Warps." + warp + ".creator").equals(player)) {
+                return true;
+            }
+        } catch (NullPointerException e) {
+            return false;
+        }
+
+        return false;
+    }
+
     public Set<String> getWarps() {
         return warpConfig.getConfigurationSection("Warps").getKeys(false);
     }
@@ -68,28 +80,28 @@ public class WarpConfig {
     public Location getWarp(String warp) {
         return new Location(
                 Bukkit.getWorld(warpConfig.getString("Homes." + warp + ".world")),
-                warpConfig.getInt("Homes." + warp + ".x"),
-                warpConfig.getInt("Homes." + warp + ".y"),
-                warpConfig.getInt("Homes." + warp + ".z"),
-                warpConfig.getInt("Homes." + warp + ".yaw"),
-                warpConfig.getInt("Homes." + warp + ".pitch")
+                warpConfig.getInt("Warps." + warp + ".x"),
+                warpConfig.getInt("Warps." + warp + ".y"),
+                warpConfig.getInt("Warps." + warp + ".z"),
+                warpConfig.getInt("Warps." + warp + ".yaw"),
+                warpConfig.getInt("Warps." + warp + ".pitch")
         );
     }
 
     public void addWarp(String warp, String player, Location loc) {
-        warpConfig.set("Homes." + warp + ".creator", player);
-        warpConfig.set("Homes." + warp + ".world", loc.getWorld());
-        warpConfig.set("Homes." + warp + ".x", loc.getBlockX());
-        warpConfig.set("Homes." + warp + ".y", loc.getBlockY());
-        warpConfig.set("Homes." + warp + ".z", loc.getBlockZ());
-        warpConfig.set("Homes." + warp + ".yaw", loc.getYaw());
-        warpConfig.set("Homes." + warp + ".pitch", loc.getPitch());
+        warpConfig.set("Warps." + warp + ".creator", player);
+        warpConfig.set("Warps." + warp + ".world", loc.getWorld());
+        warpConfig.set("Warps." + warp + ".x", loc.getBlockX());
+        warpConfig.set("Warps." + warp + ".y", loc.getBlockY());
+        warpConfig.set("Warps." + warp + ".z", loc.getBlockZ());
+        warpConfig.set("Warps." + warp + ".yaw", loc.getYaw());
+        warpConfig.set("Warps." + warp + ".pitch", loc.getPitch());
         saveWarpConfig();
     }
 
     public void delWarp(String warp, String player) {
         if (player.equals(warpConfig.getString("Homes." + warp + "creator")))
-            warpConfig.set("Homes." + warp, null);
+            warpConfig.set("Warps." + warp, null);
         saveWarpConfig();
     }
 }

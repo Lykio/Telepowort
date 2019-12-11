@@ -12,7 +12,7 @@ import java.util.List;
 public class PlayerCommandPreprocess implements Listener {
     private final Telepowort plugin;
     private PlayerConfig pc;
-    private List procs = Arrays.asList("back", "back", "warp", "w", "home", "h", "tpa", "tpaccept");
+    private List procs = Arrays.asList("back", "b", "warp", "w", "home", "h", "tpa", "tpaccept", "tpy");
 
     public PlayerCommandPreprocess(Telepowort plugin) {
         this.plugin = plugin;

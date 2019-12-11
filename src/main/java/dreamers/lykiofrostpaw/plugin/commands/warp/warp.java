@@ -38,7 +38,7 @@ public class warp implements CommandExecutor {
                 Set<String> warpMap = warpConfig.getWarps();
                 StringBuilder warpBuilder = new StringBuilder();
 
-                warpBuilder.append(ChatColor.GOLD + "SUPER  G A Y  Warps");
+                warpBuilder.append(ChatColor.GOLD + "SUPER  G A Y  Warps\n");
                 warpMap.forEach((w) -> warpBuilder.append(ChatColor.YELLOW + "\n").append(w));
 
                 sender.sendMessage(warpBuilder.toString());

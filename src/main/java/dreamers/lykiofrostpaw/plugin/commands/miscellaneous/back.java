@@ -32,11 +32,11 @@ public class back implements CommandExecutor {
             if (playerConfig.getLastTeleportLocation() != null) {
                 player.teleport(playerConfig.getLastTeleportLocation());
             } else {
-                player.sendMessage(ChatColor.RED + "You have not been teleported previously.");
+                player.sendMessage(ChatColor.RED + "You need to teleport before you can use back.");
             }
         } else {
             playerConfig.createPlayerConfig();
-            player.sendMessage(ChatColor.RED + "You have not been teleported previously.");
+            player.sendMessage(ChatColor.RED + "You need to teleport before you can use back.");
         }
 
         return true;
