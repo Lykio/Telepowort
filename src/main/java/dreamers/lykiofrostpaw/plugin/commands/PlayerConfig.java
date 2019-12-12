@@ -83,14 +83,18 @@ public class PlayerConfig {
     }
 
     public Location getLastTeleportLocation() {
-        return new Location(
-                Bukkit.getWorld(playerConfig.getString("Last-Teleport-Location.world")),
-                playerConfig.getInt("Last-Teleport-Location.x"),
-                playerConfig.getInt("Last-Teleport-Location.y"),
-                playerConfig.getInt("Last-Teleport-Location.z"),
-                playerConfig.getInt("Last-Teleport-Location.yaw"),
-                playerConfig.getInt("Last-Teleport-Location.pitch")
-        );
+        if (Bukkit.getWorld(playerConfig.getString("Last-Teleport-Location.world")) != null) {
+            return new Location(
+                    Bukkit.getWorld(playerConfig.getString("Last-Teleport-Location.world")),
+                    playerConfig.getInt("Last-Teleport-Location.x"),
+                    playerConfig.getInt("Last-Teleport-Location.y"),
+                    playerConfig.getInt("Last-Teleport-Location.z"),
+                    playerConfig.getInt("Last-Teleport-Location.yaw"),
+                    playerConfig.getInt("Last-Teleport-Location.pitch")
+            );
+        } else {
+            return null;
+        }
     }
 
     public void setLastTeleportLocation(Location loc) {
@@ -104,18 +108,30 @@ public class PlayerConfig {
     }
 
     public Set<String> getHomes() {
-        return playerConfig.getConfigurationSection("Homes").getKeys(false);
+        try {
+            return playerConfig.getConfigurationSection("Homes").getKeys(false);
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
     public Location getHome(String home) {
-        return new Location(
-                Bukkit.getWorld(playerConfig.getString("Homes." + home + ".world")),
-                playerConfig.getInt("Homes." + home + ".x"),
-                playerConfig.getInt("Homes." + home + ".y"),
-                playerConfig.getInt("Homes." + home + ".z"),
-                playerConfig.getInt("Homes." + home + ".yaw"),
-                playerConfig.getInt("Homes." + home + ".pitch")
-        );
+        try {
+            if (Bukkit.getWorld(playerConfig.getString("Homes." + home + ".world")) != null) {
+                return new Location(
+                        Bukkit.getWorld(playerConfig.getString("Homes." + home + ".world")),
+                        playerConfig.getInt("Homes." + home + ".x"),
+                        playerConfig.getInt("Homes." + home + ".y"),
+                        playerConfig.getInt("Homes." + home + ".z"),
+                        playerConfig.getInt("Homes." + home + ".yaw"),
+                        playerConfig.getInt("Homes." + home + ".pitch")
+                );
+            } else {
+                return null;
+            }
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
     public void addHome(String home, Location loc) {

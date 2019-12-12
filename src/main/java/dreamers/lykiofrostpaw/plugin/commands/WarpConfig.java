@@ -46,6 +46,16 @@ public class WarpConfig {
         }
     }
 
+    public void reload() {
+        try {
+            warpConfig.save(warpConfigFile);
+            warpConfig = YamlConfiguration.loadConfiguration(warpConfigFile);
+        } catch (IOException e) {
+            log.severe("Failed to reload warps.");
+            e.printStackTrace();
+        }
+    }
+
     public boolean exists() {
         return warpConfig.getBoolean("Acknowledged");
     }
@@ -76,18 +86,30 @@ public class WarpConfig {
     }
 
     public Set<String> getWarps() {
-        return warpConfig.getConfigurationSection("Warps").getKeys(false);
+        try {
+            return warpConfig.getConfigurationSection("Warps").getKeys(false);
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
     public Location getWarp(String warp) {
-        return new Location(
-                Bukkit.getWorld(warpConfig.getString("Homes." + warp + ".world")),
-                warpConfig.getInt("Warps." + warp + ".x"),
-                warpConfig.getInt("Warps." + warp + ".y"),
-                warpConfig.getInt("Warps." + warp + ".z"),
-                warpConfig.getInt("Warps." + warp + ".yaw"),
-                warpConfig.getInt("Warps." + warp + ".pitch")
-        );
+        try {
+            if (Bukkit.getWorld(warpConfig.getString("Homes" + warp + ".world")) != null) {
+                return new Location(
+                        Bukkit.getWorld(warpConfig.getString("Homes." + warp + ".world")),
+                        warpConfig.getInt("Warps." + warp + ".x"),
+                        warpConfig.getInt("Warps." + warp + ".y"),
+                        warpConfig.getInt("Warps." + warp + ".z"),
+                        warpConfig.getInt("Warps." + warp + ".yaw"),
+                        warpConfig.getInt("Warps." + warp + ".pitch")
+                );
+            } else {
+                return null;
+            }
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
     public void addWarp(String warp, String player, Location loc) {
