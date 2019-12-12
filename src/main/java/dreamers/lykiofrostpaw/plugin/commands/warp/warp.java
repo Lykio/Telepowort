@@ -45,7 +45,6 @@ public class warp implements CommandExecutor {
 
             player.sendMessage(warpBuilder.toString());
         }
-
         if (args.length != 0) {
             if (warpConfig.getWarps().contains(warp)) { // DO THIS IF WARP EXISTS
                 if (warp == null) {
