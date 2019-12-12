@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 
 public class delwarp implements CommandExecutor {
     private final Telepowort plugin;
-    private String warp = null;
 
     public delwarp(Telepowort plugin) {
         this.plugin = plugin;
@@ -18,6 +17,8 @@ public class delwarp implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        String warp = null;
+
         if (args.length != 0) {
             warp = args[0];
         }
@@ -38,7 +39,7 @@ public class delwarp implements CommandExecutor {
         if (warpConfig.getWarps().contains(warp)) {
             if (warpConfig.isCreator(warp, player.getName())) {
                 warpConfig.delWarp(warp, player.getName());
-                player.sendMessage(ChatColor.RED + "Deleted " + ChatColor.AQUA + warp + ChatColor.RED + ".");
+                player.sendMessage(ChatColor.YELLOW + "Deleted warp: " + ChatColor.GOLD + warp);
                 return true;
             } else {
                 player.sendMessage(ChatColor.RED + "That's not your warp!");
@@ -46,7 +47,7 @@ public class delwarp implements CommandExecutor {
             }
         } else {
             player.sendMessage(ChatColor.RED + "That warp doesn't exist.");
+            return true;
         }
-
     }
 }

@@ -8,8 +8,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Set;
-
 public class warp implements CommandExecutor {
     private final Telepowort plugin;
 
@@ -19,6 +17,7 @@ public class warp implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        StringBuilder warpBuilder = new StringBuilder();
         String warp = null;
 
         if (!(sender instanceof Player)) {
@@ -34,24 +33,29 @@ public class warp implements CommandExecutor {
 
         // LIST WARPS
         if (args.length == 0) {
-            try {
-                Set<String> warpMap = warpConfig.getWarps();
-                StringBuilder warpBuilder = new StringBuilder();
-
-                warpBuilder.append(ChatColor.GOLD + "SUPER  G A Y  Warps\n");
-                warpMap.forEach((w) -> warpBuilder.append(ChatColor.YELLOW + "\n").append(w));
-
-                sender.sendMessage(warpBuilder.toString());
-            } catch (NullPointerException e) {
-                sender.sendMessage(ChatColor.RED + "There are no warps yet!");
+            warpBuilder = new StringBuilder();
+            warpBuilder.append(ChatColor.GOLD + "SUPER  G A Y  Warps:\n");
+            if (warpConfig.getWarps() == null) {
+                warpBuilder.append(ChatColor.GOLD + "There's no gay warps, yet.");
+            } else {
+                for (String w : warpConfig.getWarps()) {
+                    warpBuilder.append(ChatColor.YELLOW + "\n").append(w);
+                }
             }
+
+            player.sendMessage(warpBuilder.toString());
         }
 
-
-        if (warpConfig.getWarps().contains(warp)) { // DO THIS IF WARP EXISTS
-            player.teleport(warpConfig.getWarp(warp));
-        } else {
-            player.sendMessage(ChatColor.RED + "That warp doesn't exist!");
+        if (args.length != 0) {
+            if (warpConfig.getWarps().contains(warp)) { // DO THIS IF WARP EXISTS
+                if (warp == null) {
+                    player.sendMessage(warpBuilder.toString());
+                    return true;
+                }
+                player.teleport(warpConfig.getWarp(warp));
+            } else {
+                player.sendMessage(ChatColor.RED + "That warp doesn't exist!");
+            }
         }
 
         return true;

@@ -10,17 +10,19 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Set;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 public class PlayerConfig {
+    private final Logger log = Bukkit.getLogger();
+    private final Player player;
     private final UUID playerID;
-    private Player player;
     private File playerConfigFile;
     private FileConfiguration playerConfig;
 
     public PlayerConfig(Player player) {
         this.player = player;
         this.playerID = player.getUniqueId();
-        playerConfigFile = new File("plugins/Telepowort/users/" + playerID);
+        playerConfigFile = new File("plugins\\Telepowort\\users", playerID + ".yml");
         playerConfig = YamlConfiguration.loadConfiguration(playerConfigFile);
     }
 
@@ -28,12 +30,12 @@ public class PlayerConfig {
         try {
             if (playerConfigFile.createNewFile()) {
                 createPlayerConfigDefaults();
-                System.out.println("Player " + playerID + "didn't exist, created new user config successfully!");
+                log.info("Player config " + playerID + " didn't exist, created new user config successfully!");
             } else {
-                System.out.println("Player " + playerID + "is pre-existing.");
+                log.info("Player config " + playerID + " is pre-existing.");
             }
         } catch (IOException exception) {
-            System.out.println("Failed to create new Player config for " + playerID + ".\n");
+            log.severe("Failed to create new Player config for " + playerID + ".");
             exception.printStackTrace();
         }
     }
@@ -42,9 +44,9 @@ public class PlayerConfig {
         if (playerConfigFile.length() == 0) {
             playerConfig.set("Acknowledged", true);
             playerConfig.set("Name", player.getName());
-            playerConfig.set("Nickname", null);
-            playerConfig.set("Last-Teleport-Location", null);
-            playerConfig.set("Homes", null);
+            playerConfig.set("Nickname", null); // Don't
+            playerConfig.set("Last-Teleport-Location", null); // tease
+            playerConfig.set("Homes", null); // me
             savePlayerConfig();
         }
     }
@@ -61,7 +63,7 @@ public class PlayerConfig {
         try {
             getPlayerConfig().save(playerConfigFile);
         } catch (IOException exception) {
-            System.out.println("Failed to save Player config for " + this.playerID + ".\n");
+            log.severe("Failed to save Player config for " + this.playerID + ".\n");
             exception.printStackTrace();
         }
     }
@@ -77,7 +79,7 @@ public class PlayerConfig {
     public void setNickname(String nickname) {
         playerConfig.set("Nickname", nickname);
         savePlayerConfig();
-        System.out.println("Player " + player.getDisplayName() + "changed their nickname to " + nickname);
+        log.info("Player " + player.getDisplayName() + "changed their nickname to " + nickname);
     }
 
     public Location getLastTeleportLocation() {

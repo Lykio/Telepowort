@@ -1,6 +1,5 @@
 package dreamers.lykiofrostpaw.plugin;
 
-import dreamers.lykiofrostpaw.plugin.commands.RequestConfig;
 import dreamers.lykiofrostpaw.plugin.commands.WarpConfig;
 import dreamers.lykiofrostpaw.plugin.commands.home.delhome;
 import dreamers.lykiofrostpaw.plugin.commands.home.home;
@@ -20,19 +19,23 @@ import dreamers.lykiofrostpaw.plugin.listeners.PlayerCommandPreprocess;
 import dreamers.lykiofrostpaw.plugin.listeners.PlayerLogin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+
 
 public final class Telepowort extends JavaPlugin {
-    private WarpConfig warpConfig = new WarpConfig(this);
-    private RequestConfig requestConfig = new RequestConfig(this);
 
     @Override
     public void onEnable() {
-        if (!warpConfig.exists()) {
-            warpConfig.createWarpConfig();
+        // Prevent crashing because code is trash
+        File users = new File(getDataFolder() + "\\users");
+        if (!users.exists()) {
+            users.mkdirs();
         }
 
-        if (!requestConfig.exists()) {
-            requestConfig.createWarpConfig();
+        WarpConfig warpConfig = new WarpConfig(this);
+
+        if (!warpConfig.exists()) {
+            warpConfig.createWarpConfig();
         }
 
         // Home

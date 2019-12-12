@@ -16,6 +16,7 @@ public class PlayerCommandPreprocess implements Listener {
 
     public PlayerCommandPreprocess(Telepowort plugin) {
         this.plugin = plugin;
+        this.plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     @EventHandler // Update their config on command invoke

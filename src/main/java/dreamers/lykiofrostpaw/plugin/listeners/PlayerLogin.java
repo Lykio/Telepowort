@@ -11,6 +11,7 @@ public class PlayerLogin implements Listener {
 
     public PlayerLogin(Telepowort plugin) {
         this.plugin = plugin;
+        this.plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     @EventHandler // Change their display name to nickname on LoginEvent
@@ -24,9 +25,7 @@ public class PlayerLogin implements Listener {
     @EventHandler // Creating their config, if it doesn't exist, on LoginEvent
     public void createConfig(PlayerLoginEvent event) {
         PlayerConfig playerConfig = new PlayerConfig(event.getPlayer());
-        if (!playerConfig.exists()) {
-            playerConfig.createPlayerConfig();
-        }
+        playerConfig.createPlayerConfig();
     }
 
 }

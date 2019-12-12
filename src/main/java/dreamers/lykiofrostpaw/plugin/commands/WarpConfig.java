@@ -9,15 +9,18 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
 import java.util.Set;
+import java.util.logging.Logger;
 
 public class WarpConfig {
     private final Telepowort plugin;
+    private final Logger log;
     private File warpConfigFile;
     private FileConfiguration warpConfig;
 
     public WarpConfig(Telepowort plugin) {
         this.plugin = plugin;
-        warpConfigFile = new File(plugin.getDataFolder() + "warps.yml");
+        this.log = plugin.getLogger();
+        warpConfigFile = new File(plugin.getDataFolder(), "warps.yml");
         warpConfig = YamlConfiguration.loadConfiguration(warpConfigFile);
     }
 
@@ -25,12 +28,12 @@ public class WarpConfig {
         try {
             if (warpConfigFile.createNewFile()) {
                 createWarpConfigDefaults();
-                System.out.println("Created warp config successfully.");
+                log.info("Created warp config successfully.");
             } else {
-                System.out.println("Warp filed is pre-existing.");
+                log.info("Warp config is pre-existing.");
             }
         } catch (IOException e) {
-            System.out.println("Failed to create warp config.");
+            log.severe("Failed to create warp config.");
             e.printStackTrace();
         }
     }
@@ -38,7 +41,7 @@ public class WarpConfig {
     private void createWarpConfigDefaults() {
         if (warpConfigFile.length() == 0) {
             warpConfig.set("Acknowledged", true);
-            warpConfig.set("Warps", null);
+            warpConfig.set("Warps", null); // I know this doesn't do anything, it's for personal readability
             saveWarpConfig();
         }
     }
@@ -53,10 +56,9 @@ public class WarpConfig {
 
     public void saveWarpConfig() {
         try {
-            createWarpConfigDefaults();
             getWarpConfig().save(warpConfigFile);
         } catch (IOException e) {
-            System.out.println("Failed to save warp config.");
+            log.severe("Failed to save warp config.");
             e.printStackTrace();
         }
     }
@@ -90,7 +92,7 @@ public class WarpConfig {
 
     public void addWarp(String warp, String player, Location loc) {
         warpConfig.set("Warps." + warp + ".creator", player);
-        warpConfig.set("Warps." + warp + ".world", loc.getWorld());
+        warpConfig.set("Warps." + warp + ".world", loc.getWorld().getName());
         warpConfig.set("Warps." + warp + ".x", loc.getBlockX());
         warpConfig.set("Warps." + warp + ".y", loc.getBlockY());
         warpConfig.set("Warps." + warp + ".z", loc.getBlockZ());

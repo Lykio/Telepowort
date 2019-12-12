@@ -21,7 +21,6 @@ public class setwarp implements CommandExecutor {
 
         if (!(sender instanceof Player)) {
             sender.sendMessage(ChatColor.RED + "Only players can create warps!");
-            return true;
         }
 
         if (args.length != 0) {
@@ -33,11 +32,12 @@ public class setwarp implements CommandExecutor {
 
         if (warp == null) {
             sender.sendMessage(ChatColor.RED + "Your warp needs a name.");
-            return true;
         }
 
         warpConfig.addWarp(warp, player.getName(), player.getLocation());
-        return warpConfig.getWarp(warp) != null;
+        sender.sendMessage(ChatColor.YELLOW + "Created new warp: " + ChatColor.GOLD + warp);
+
+        return true;
     }
 
 }
