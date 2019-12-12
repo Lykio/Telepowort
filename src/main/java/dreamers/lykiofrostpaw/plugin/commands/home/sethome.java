@@ -21,6 +21,7 @@ public class sethome implements CommandExecutor {
 
         if (!(sender instanceof Player)) {
             sender.sendMessage(ChatColor.RED + "Only players can create homes!");
+            return true;
         }
 
         if (args.length != 0) {

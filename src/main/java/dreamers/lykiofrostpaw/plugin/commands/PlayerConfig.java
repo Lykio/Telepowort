@@ -51,6 +51,11 @@ public class PlayerConfig {
         }
     }
 
+    public void reload() {
+        savePlayerConfig();
+        playerConfig = YamlConfiguration.loadConfiguration(playerConfigFile);
+    }
+
     public boolean exists() {
         return playerConfig.getBoolean("Acknowledged");
     }
@@ -116,20 +121,16 @@ public class PlayerConfig {
     }
 
     public Location getHome(String home) {
-        try {
-            if (Bukkit.getWorld(playerConfig.getString("Homes." + home + ".world")) != null) {
-                return new Location(
-                        Bukkit.getWorld(playerConfig.getString("Homes." + home + ".world")),
-                        playerConfig.getInt("Homes." + home + ".x"),
-                        playerConfig.getInt("Homes." + home + ".y"),
-                        playerConfig.getInt("Homes." + home + ".z"),
-                        playerConfig.getInt("Homes." + home + ".yaw"),
-                        playerConfig.getInt("Homes." + home + ".pitch")
-                );
-            } else {
-                return null;
-            }
-        } catch (NullPointerException e) {
+        if (Bukkit.getWorld(playerConfig.getString("Homes." + home + ".world")) != null) {
+            return new Location(
+                    Bukkit.getWorld(playerConfig.getString("Homes." + home + ".world")),
+                    playerConfig.getInt("Homes." + home + ".x"),
+                    playerConfig.getInt("Homes." + home + ".y"),
+                    playerConfig.getInt("Homes." + home + ".z"),
+                    playerConfig.getInt("Homes." + home + ".yaw"),
+                    playerConfig.getInt("Homes." + home + ".pitch")
+            );
+        } else {
             return null;
         }
     }
@@ -148,4 +149,5 @@ public class PlayerConfig {
         playerConfig.set("Homes." + home, null);
         savePlayerConfig();
     }
+
 }

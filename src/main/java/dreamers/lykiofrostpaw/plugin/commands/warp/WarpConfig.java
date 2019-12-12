@@ -1,4 +1,4 @@
-package dreamers.lykiofrostpaw.plugin.commands;
+package dreamers.lykiofrostpaw.plugin.commands.warp;
 
 import dreamers.lykiofrostpaw.plugin.Telepowort;
 import org.bukkit.Bukkit;
@@ -47,13 +47,8 @@ public class WarpConfig {
     }
 
     public void reload() {
-        try {
-            warpConfig.save(warpConfigFile);
-            warpConfig = YamlConfiguration.loadConfiguration(warpConfigFile);
-        } catch (IOException e) {
-            log.severe("Failed to reload warps.");
-            e.printStackTrace();
-        }
+        saveWarpConfig();
+        warpConfig = YamlConfiguration.loadConfiguration(warpConfigFile);
     }
 
     public boolean exists() {

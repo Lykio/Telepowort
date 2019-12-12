@@ -1,6 +1,5 @@
 package dreamers.lykiofrostpaw.plugin;
 
-import dreamers.lykiofrostpaw.plugin.commands.WarpConfig;
 import dreamers.lykiofrostpaw.plugin.commands.home.delhome;
 import dreamers.lykiofrostpaw.plugin.commands.home.home;
 import dreamers.lykiofrostpaw.plugin.commands.home.sethome;
@@ -12,6 +11,7 @@ import dreamers.lykiofrostpaw.plugin.commands.tpa.tpa;
 import dreamers.lykiofrostpaw.plugin.commands.tpa.tpaccept;
 import dreamers.lykiofrostpaw.plugin.commands.tpa.tpadecline;
 import dreamers.lykiofrostpaw.plugin.commands.tpa.tpahere;
+import dreamers.lykiofrostpaw.plugin.commands.warp.WarpConfig;
 import dreamers.lykiofrostpaw.plugin.commands.warp.delwarp;
 import dreamers.lykiofrostpaw.plugin.commands.warp.setwarp;
 import dreamers.lykiofrostpaw.plugin.commands.warp.warp;

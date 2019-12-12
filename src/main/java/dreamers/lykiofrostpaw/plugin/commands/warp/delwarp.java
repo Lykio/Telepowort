@@ -1,7 +1,6 @@
 package dreamers.lykiofrostpaw.plugin.commands.warp;
 
 import dreamers.lykiofrostpaw.plugin.Telepowort;
-import dreamers.lykiofrostpaw.plugin.commands.WarpConfig;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -40,6 +39,7 @@ public class delwarp implements CommandExecutor {
             if (warpConfig.isCreator(warp, player.getName())) {
                 warpConfig.delWarp(warp, player.getName());
                 player.sendMessage(ChatColor.YELLOW + "Deleted warp: " + ChatColor.GOLD + warp);
+                warpConfig.reload();
                 return true;
             } else {
                 player.sendMessage(ChatColor.RED + "That's not your warp!");

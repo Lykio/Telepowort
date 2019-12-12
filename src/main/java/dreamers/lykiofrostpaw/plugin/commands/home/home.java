@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 
 public class home implements CommandExecutor {
     private final Telepowort plugin;
-
+    StringBuilder homeBuilder;
     public home(Telepowort plugin) {
         this.plugin = plugin;
     }
@@ -21,6 +21,7 @@ public class home implements CommandExecutor {
 
         if (!(sender instanceof Player)) {
             sender.sendMessage("Only players can invoke that command!");
+            return true;
         }
 
         if (args.length != 0) {
@@ -32,17 +33,8 @@ public class home implements CommandExecutor {
 
         // LIST WARPS IF ARGS EMPTY
         if (args.length == 0) {
-            StringBuilder homeBuilder = new StringBuilder();
-            homeBuilder.append(ChatColor.GOLD + "Wolf prisons: ");
-            if (playerConfig.getHomes() == null) {
-                homeBuilder.append(ChatColor.GRAY + "You have no wolf prisons. Disappointing.");
-            } else {
-                for (String h : playerConfig.getHomes()) {
-                    homeBuilder.append(ChatColor.YELLOW + "\n").append(h);
-                }
-            }
-
-            player.sendMessage(homeBuilder.toString());
+            player.sendMessage(homeMessage(playerConfig));
+            return true;
         }
 
         if (args.length != 0) {
@@ -54,5 +46,21 @@ public class home implements CommandExecutor {
         }
 
         return true;
+    }
+
+    private String homeMessage(PlayerConfig playerConfig) {
+        StringBuilder warpBuilder = new StringBuilder();
+        homeBuilder.append(ChatColor.GOLD + "Wolf prisons: ");
+
+        if (playerConfig.getHomes() == null) {
+            homeBuilder.append(ChatColor.GRAY + "You have no wolf prisons. Disappointing.");
+
+        } else {
+            for (String h : playerConfig.getHomes()) {
+                warpBuilder.append(ChatColor.YELLOW + "\n").append(h);
+            }
+        }
+
+        return warpBuilder.toString();
     }
 }
