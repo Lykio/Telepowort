@@ -8,14 +8,10 @@ import dreamers.lykiofrostpaw.plugin.commands.miscellaneous.nickname;
 import dreamers.lykiofrostpaw.plugin.commands.miscellaneous.ping;
 import dreamers.lykiofrostpaw.plugin.commands.miscellaneous.treload;
 import dreamers.lykiofrostpaw.plugin.commands.tpa.tpa;
-import dreamers.lykiofrostpaw.plugin.commands.tpa.tpaccept;
-import dreamers.lykiofrostpaw.plugin.commands.tpa.tpadecline;
-import dreamers.lykiofrostpaw.plugin.commands.tpa.tpahere;
 import dreamers.lykiofrostpaw.plugin.commands.warp.WarpConfig;
 import dreamers.lykiofrostpaw.plugin.commands.warp.delwarp;
 import dreamers.lykiofrostpaw.plugin.commands.warp.setwarp;
 import dreamers.lykiofrostpaw.plugin.commands.warp.warp;
-import dreamers.lykiofrostpaw.plugin.listeners.PlayerCommandPreprocess;
 import dreamers.lykiofrostpaw.plugin.listeners.PlayerLogin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -26,17 +22,12 @@ public final class Telepowort extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
         // Prevent crashing because code is trash
-        File users = new File(getDataFolder() + "\\users");
-        if (!users.exists()) {
-            users.mkdirs();
-        }
-
+        File userspath = new File(getDataFolder() + "\\users");
+        if (!userspath.exists()) userspath.mkdirs();
         WarpConfig warpConfig = new WarpConfig(this);
-
-        if (!warpConfig.exists()) {
-            warpConfig.createWarpConfig();
-        }
+        if (!warpConfig.exists()) warpConfig.createWarpConfig();
 
         // Home
         this.getCommand("home").setExecutor(new home(this));
@@ -45,9 +36,6 @@ public final class Telepowort extends JavaPlugin {
 
         // TPA
         this.getCommand("tpa").setExecutor(new tpa(this));
-        this.getCommand("tpaccept").setExecutor(new tpaccept(this));
-        this.getCommand("tpadecline").setExecutor(new tpadecline(this));
-        this.getCommand("tpahere").setExecutor(new tpahere(this));
 
         // Warp
         this.getCommand("warp").setExecutor(new warp(this));
@@ -62,7 +50,6 @@ public final class Telepowort extends JavaPlugin {
 
         // Listeners
         new PlayerLogin(this);
-        new PlayerCommandPreprocess(this);
     }
 
     @Override

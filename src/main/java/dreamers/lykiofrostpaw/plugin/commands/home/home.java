@@ -6,9 +6,13 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-public class home implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class home implements CommandExecutor, TabCompleter {
     private final Telepowort plugin;
     StringBuilder homeBuilder;
     public home(Telepowort plugin) {
@@ -37,11 +41,14 @@ public class home implements CommandExecutor {
             return true;
         }
 
-        if (args.length != 0) {
+        if (home != null) {
             if (playerConfig.getHomes().contains(home)) { // DO THIS IF WARP EXISTS
+                playerConfig.setLastTeleportLocation(player.getLocation());
                 player.teleport(playerConfig.getHome(home));
+                return true;
             } else {
                 player.sendMessage(ChatColor.RED + "That home doesn't exist!");
+                return true;
             }
         }
 
@@ -62,5 +69,16 @@ public class home implements CommandExecutor {
         }
 
         return homeBuilder.toString();
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        PlayerConfig playerConfig = new PlayerConfig((Player) sender);
+
+        if (!playerConfig.getHomes().isEmpty()) {
+            return new ArrayList<>(playerConfig.getHomes());
+        }
+
+        return new ArrayList<>();
     }
 }

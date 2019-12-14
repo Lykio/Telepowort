@@ -8,6 +8,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -46,7 +47,7 @@ public class WarpConfig {
         }
     }
 
-    public void reload() {
+    void reload() {
         saveWarpConfig();
         warpConfig = YamlConfiguration.loadConfiguration(warpConfigFile);
     }
@@ -68,7 +69,7 @@ public class WarpConfig {
         }
     }
 
-    public boolean isCreator(String warp, String player) {
+    boolean isCreator(String warp, String player) {
         try {
             if (warpConfig.getString("Warps." + warp + ".creator").equals(player)) {
                 return true;
@@ -80,15 +81,15 @@ public class WarpConfig {
         return false;
     }
 
-    public Set<String> getWarps() {
+    Set<String> getWarps() {
         try {
             return warpConfig.getConfigurationSection("Warps").getKeys(false);
         } catch (NullPointerException e) {
-            return null;
+            return new HashSet<>();
         }
     }
 
-    public Location getWarp(String warp) {
+    Location getWarp(String warp) {
         return new Location(
                 Bukkit.getWorld(warpConfig.getString("Warps." + warp + ".world")),
                 warpConfig.getInt("Warps." + warp + ".x"),
@@ -99,7 +100,7 @@ public class WarpConfig {
         );
     }
 
-    public void addWarp(String warp, String player, Location loc) {
+    void addWarp(String warp, String player, Location loc) {
         warpConfig.set("Warps." + warp + ".creator", player);
         warpConfig.set("Warps." + warp + ".world", loc.getWorld().getName());
         warpConfig.set("Warps." + warp + ".x", loc.getBlockX());
@@ -110,8 +111,7 @@ public class WarpConfig {
         saveWarpConfig();
     }
 
-    public void delWarp(String warp, String player) {
-        if (player.equals(warpConfig.getString("Homes." + warp + "creator")))
+    void delWarp(String warp) {
             warpConfig.set("Warps." + warp, null);
         saveWarpConfig();
     }

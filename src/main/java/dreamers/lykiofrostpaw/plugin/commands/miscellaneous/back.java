@@ -30,6 +30,7 @@ public class back implements CommandExecutor {
 
         if (playerConfig.exists()) {
             if (playerConfig.getLastTeleportLocation() != null) {
+                playerConfig.setLastTeleportLocation(player.getLocation());
                 player.teleport(playerConfig.getLastTeleportLocation());
             } else {
                 player.sendMessage(ChatColor.RED + "You need to teleport before you can use back.");

@@ -6,9 +6,13 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-public class sethome implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class sethome implements CommandExecutor, TabCompleter {
     private final Telepowort plugin;
 
     public sethome(Telepowort plugin) {
@@ -33,11 +37,23 @@ public class sethome implements CommandExecutor {
 
         if (home == null) {
             sender.sendMessage(ChatColor.RED + "Your home needs a name.");
+            return true;
         }
 
         playerConfig.addHome(home, player.getLocation());
-        player.sendMessage(ChatColor.YELLOW + "Created new home: " + ChatColor.AQUA + home);
+        player.sendMessage(ChatColor.RED + "Created new home: " + ChatColor.AQUA + home);
 
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        PlayerConfig playerConfig = new PlayerConfig((Player) sender);
+
+        if (!playerConfig.getHomes().isEmpty()) {
+            return new ArrayList<>(playerConfig.getHomes());
+        }
+
+        return new ArrayList<>();
     }
 }

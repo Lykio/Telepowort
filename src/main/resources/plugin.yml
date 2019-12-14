@@ -21,22 +21,7 @@ commands:
       - seth
   tpa:
     usage: /tpa <player>
-    description: Teleports you to a player with permission.
-  tpahere:
-    usage: /tpahere <player>
-    description: Teleports a player to you with permission.
-    aliases:
-      - tph
-  tpaccept:
-    usage: /tpaccept
-    description: Permits a tpa or tpahere.
-    aliases:
-      - tpy
-  tpadecline:
-    usage: /tpadecline
-    description: Won't permit a tpa or tpahere.
-    aliases:
-      - tpn
+    description: Teleports you to a player.
   warp:
     usage: /warp <warp>
     description: Teleports the player to a warp.

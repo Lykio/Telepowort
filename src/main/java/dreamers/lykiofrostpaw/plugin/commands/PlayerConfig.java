@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -116,7 +117,7 @@ public class PlayerConfig {
         try {
             return playerConfig.getConfigurationSection("Homes").getKeys(false);
         } catch (NullPointerException e) {
-            return null;
+            return new HashSet<>();
         }
     }
 

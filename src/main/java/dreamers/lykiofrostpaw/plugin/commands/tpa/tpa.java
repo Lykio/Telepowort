@@ -1,6 +1,7 @@
 package dreamers.lykiofrostpaw.plugin.commands.tpa;
 
 import dreamers.lykiofrostpaw.plugin.Telepowort;
+import dreamers.lykiofrostpaw.plugin.commands.PlayerConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -16,38 +17,33 @@ public class tpa implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        String request = null;
+        String receiver = null;
 
         if (!(sender instanceof Player)) {
             sender.sendMessage(ChatColor.RED + "Only players can teleport.");
             return true;
         }
 
-
         if (args.length != 0) {
-            request = args[0];
+            receiver = args[0];
         }
 
-        if (Bukkit.getPlayer(request) == null) {
-            sender.sendMessage(ChatColor.RED + "That's not a player.");
+        if (Bukkit.getPlayer(receiver) == null) {
+            sender.sendMessage(ChatColor.RED + "Choose a player.");
             return true;
         }
 
         Player player = (Player) sender;
-        Player requestee = Bukkit.getPlayer(request);
+        PlayerConfig playerConfig = new PlayerConfig(player);
+        Player target = Bukkit.getPlayer(receiver);
 
-        if (request == null) {
-            player.sendMessage(ChatColor.RED + "You need to select a player to teleport to.");
-            return true;
+        if (target != null) {
+            playerConfig.setLastTeleportLocation(player.getLocation());
+            player.teleport(target.getLocation());
+        } else {
+            player.sendMessage(ChatColor.YELLOW + "That player doesn't uwu!");
         }
 
-        if (!Bukkit.getOnlinePlayers().contains(requestee)) {
-            player.sendMessage(ChatColor.RED + "Player needs to be online.");
-            return true;
-        }
-
-
-        return false;
+        return true;
     }
-
 }

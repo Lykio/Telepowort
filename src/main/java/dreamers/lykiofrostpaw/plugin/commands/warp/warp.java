@@ -1,13 +1,18 @@
 package dreamers.lykiofrostpaw.plugin.commands.warp;
 
 import dreamers.lykiofrostpaw.plugin.Telepowort;
+import dreamers.lykiofrostpaw.plugin.commands.PlayerConfig;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-public class warp implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class warp implements CommandExecutor, TabCompleter {
     private final Telepowort plugin;
     private WarpConfig warpConfig;
 
@@ -29,6 +34,7 @@ public class warp implements CommandExecutor {
         }
 
         Player player = (Player) sender;
+        PlayerConfig playerConfig = new PlayerConfig(player);
         WarpConfig warpConfig = new WarpConfig(plugin);
 
         // LIST WARPS
@@ -43,6 +49,7 @@ public class warp implements CommandExecutor {
                     player.sendMessage(warpMessage(warpConfig));
                     return true;
                 }
+                playerConfig.setLastTeleportLocation(player.getLocation());
                 player.teleport(warpConfig.getWarp(warp));
                 return true;
             } else {
@@ -67,5 +74,16 @@ public class warp implements CommandExecutor {
         }
 
         return warpBuilder.toString();
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        WarpConfig warpConfig = new WarpConfig(plugin);
+
+        if (!warpConfig.getWarps().isEmpty()) {
+            return new ArrayList<>(warpConfig.getWarps());
+        }
+
+        return new ArrayList<>();
     }
 }
