@@ -49,18 +49,18 @@ public class home implements CommandExecutor {
     }
 
     private String homeMessage(PlayerConfig playerConfig) {
-        StringBuilder warpBuilder = new StringBuilder();
+        playerConfig.reload();
+        StringBuilder homeBuilder = new StringBuilder();
         homeBuilder.append(ChatColor.GOLD + "Wolf prisons: ");
 
-        if (playerConfig.getHomes() == null) {
-            homeBuilder.append(ChatColor.GRAY + "You have no wolf prisons. Disappointing.");
-
+        if (playerConfig.getHomes().isEmpty()) {
+            homeBuilder.append(ChatColor.GRAY + "\nYou have no wolf prisons. Disappointing.");
         } else {
             for (String h : playerConfig.getHomes()) {
-                warpBuilder.append(ChatColor.YELLOW + "\n").append(h);
+                homeBuilder.append(ChatColor.YELLOW + "\n").append(h);
             }
         }
 
-        return warpBuilder.toString();
+        return homeBuilder.toString();
     }
 }

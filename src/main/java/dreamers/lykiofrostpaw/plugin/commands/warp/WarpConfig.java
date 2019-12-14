@@ -89,22 +89,14 @@ public class WarpConfig {
     }
 
     public Location getWarp(String warp) {
-        try {
-            if (Bukkit.getWorld(warpConfig.getString("Homes" + warp + ".world")) != null) {
-                return new Location(
-                        Bukkit.getWorld(warpConfig.getString("Homes." + warp + ".world")),
-                        warpConfig.getInt("Warps." + warp + ".x"),
-                        warpConfig.getInt("Warps." + warp + ".y"),
-                        warpConfig.getInt("Warps." + warp + ".z"),
-                        warpConfig.getInt("Warps." + warp + ".yaw"),
-                        warpConfig.getInt("Warps." + warp + ".pitch")
-                );
-            } else {
-                return null;
-            }
-        } catch (NullPointerException e) {
-            return null;
-        }
+        return new Location(
+                Bukkit.getWorld(warpConfig.getString("Warps." + warp + ".world")),
+                warpConfig.getInt("Warps." + warp + ".x"),
+                warpConfig.getInt("Warps." + warp + ".y"),
+                warpConfig.getInt("Warps." + warp + ".z"),
+                warpConfig.getInt("Warps." + warp + ".yaw"),
+                warpConfig.getInt("Warps." + warp + ".pitch")
+        );
     }
 
     public void addWarp(String warp, String player, Location loc) {

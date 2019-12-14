@@ -33,14 +33,14 @@ public class warp implements CommandExecutor {
 
         // LIST WARPS
         if (args.length == 0) {
-            player.sendMessage(warpMessage());
+            player.sendMessage(warpMessage(warpConfig));
             return true;
         }
 
         if (args.length != 0) {
             if (warpConfig.getWarps().contains(warp)) { // DO THIS IF WARP EXISTS
                 if (warp == null) {
-                    player.sendMessage(warpMessage());
+                    player.sendMessage(warpMessage(warpConfig));
                     return true;
                 }
                 player.teleport(warpConfig.getWarp(warp));
@@ -54,12 +54,12 @@ public class warp implements CommandExecutor {
         return true;
     }
 
-    private String warpMessage() {
+    private String warpMessage(WarpConfig warpConfig) {
         StringBuilder warpBuilder = new StringBuilder();
         warpBuilder.append(ChatColor.GOLD + "SUPER  G A Y  Warps:\n");
 
-        if (warpConfig.getWarps() == null) {
-            warpBuilder.append(ChatColor.GOLD + "There's no gay warps, yet.");
+        if (warpConfig.getWarps().isEmpty()) {
+            warpBuilder.append(ChatColor.GRAY + "There's no gay warps, yet.");
         } else {
             for (String w : warpConfig.getWarps()) {
                 warpBuilder.append(ChatColor.YELLOW + "\n").append(w);

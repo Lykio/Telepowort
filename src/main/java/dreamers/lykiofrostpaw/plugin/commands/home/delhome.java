@@ -32,6 +32,7 @@ public class delhome implements CommandExecutor {
 
         if (playerConfig.getHomes().contains(home)) {
             playerConfig.delHome(home);
+            playerConfig.reload();
             player.sendMessage(ChatColor.RED + "Deleted " + ChatColor.AQUA + home + ChatColor.RED + ".");
             return true;
         } else {
