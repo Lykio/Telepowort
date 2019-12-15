@@ -28,15 +28,19 @@ public class tpa implements CommandExecutor {
             receiver = args[0];
         }
 
-        if (Bukkit.getPlayer(receiver) == null) {
-            sender.sendMessage(ChatColor.RED + "Choose a player.");
+        try {
+            if (Bukkit.getPlayer(receiver) == null) {
+                sender.sendMessage(ChatColor.RED + "Choose a player.");
+                return true;
+            }
+        } catch (IllegalArgumentException e) {
+            sender.sendMessage(ChatColor.RED + "You need to choose a player.");
             return true;
         }
 
         Player player = (Player) sender;
         PlayerConfig playerConfig = new PlayerConfig(player);
         Player target = Bukkit.getPlayer(receiver);
-
         if (target != null) {
             playerConfig.setLastTeleportLocation(player.getLocation());
             player.teleport(target.getLocation());

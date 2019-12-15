@@ -3,6 +3,7 @@ package dreamers.lykiofrostpaw.plugin.commands.miscellaneous;
 import dreamers.lykiofrostpaw.plugin.Telepowort;
 import dreamers.lykiofrostpaw.plugin.commands.PlayerConfig;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -27,11 +28,12 @@ public class back implements CommandExecutor {
 
         Player player = (Player) sender;
         PlayerConfig playerConfig = new PlayerConfig(player);
+        Location previousLocation = player.getLocation();
 
         if (playerConfig.exists()) {
             if (playerConfig.getLastTeleportLocation() != null) {
-                playerConfig.setLastTeleportLocation(player.getLocation());
                 player.teleport(playerConfig.getLastTeleportLocation());
+                playerConfig.setLastTeleportLocation(previousLocation);
             } else {
                 player.sendMessage(ChatColor.RED + "You need to teleport before you can use back.");
             }
