@@ -1,7 +1,7 @@
 name: Telepowort
 author: Lykio_Frostpaw
 main: dreamers.lykiofrostpaw.plugin.Telepowort
-version: 0.91r
+version: 1r
 api-version: 1.14
 commands:
   home:
