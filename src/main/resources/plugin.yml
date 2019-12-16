@@ -2,7 +2,7 @@ name: Telepowort
 author: Lykio_Frostpaw
 main: dreamers.lykiofrostpaw.plugin.Telepowort
 version: 2r
-api-version: 1.14
+api-version: 1.15
 description: Gives all players tools to quickly get from place to place.
 commands:
   home:
