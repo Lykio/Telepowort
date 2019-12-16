@@ -92,9 +92,9 @@ public class PlayerConfig {
         if (Bukkit.getWorld(playerConfig.getString("Last-Teleport-Location.world")) != null) {
             return new Location(
                     Bukkit.getWorld(playerConfig.getString("Last-Teleport-Location.world")),
-                    playerConfig.getInt("Last-Teleport-Location.x"),
-                    playerConfig.getInt("Last-Teleport-Location.y"),
-                    playerConfig.getInt("Last-Teleport-Location.z"),
+                    playerConfig.getInt("Last-Teleport-Location.x") + 0.5,
+                    playerConfig.getInt("Last-Teleport-Location.y") + 0.5,
+                    playerConfig.getInt("Last-Teleport-Location.z") + 0.5,
                     playerConfig.getInt("Last-Teleport-Location.yaw"),
                     playerConfig.getInt("Last-Teleport-Location.pitch")
             );
@@ -125,9 +125,9 @@ public class PlayerConfig {
         if (Bukkit.getWorld(playerConfig.getString("Homes." + home + ".world")) != null) {
             return new Location(
                     Bukkit.getWorld(playerConfig.getString("Homes." + home + ".world")),
-                    playerConfig.getInt("Homes." + home + ".x"),
+                    playerConfig.getInt("Homes." + home + ".x") + 0.5,
                     playerConfig.getInt("Homes." + home + ".y"),
-                    playerConfig.getInt("Homes." + home + ".z"),
+                    playerConfig.getInt("Homes." + home + ".z") + 0.5,
                     playerConfig.getInt("Homes." + home + ".yaw"),
                     playerConfig.getInt("Homes." + home + ".pitch")
             );

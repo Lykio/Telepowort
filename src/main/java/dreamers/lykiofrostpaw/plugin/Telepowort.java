@@ -6,12 +6,13 @@ import dreamers.lykiofrostpaw.plugin.commands.home.sethome;
 import dreamers.lykiofrostpaw.plugin.commands.miscellaneous.back;
 import dreamers.lykiofrostpaw.plugin.commands.miscellaneous.nickname;
 import dreamers.lykiofrostpaw.plugin.commands.miscellaneous.ping;
-import dreamers.lykiofrostpaw.plugin.commands.miscellaneous.treload;
+import dreamers.lykiofrostpaw.plugin.commands.miscellaneous.telepowort;
 import dreamers.lykiofrostpaw.plugin.commands.tpa.tpa;
 import dreamers.lykiofrostpaw.plugin.commands.warp.WarpConfig;
 import dreamers.lykiofrostpaw.plugin.commands.warp.delwarp;
 import dreamers.lykiofrostpaw.plugin.commands.warp.setwarp;
 import dreamers.lykiofrostpaw.plugin.commands.warp.warp;
+import dreamers.lykiofrostpaw.plugin.listeners.PlayerDeath;
 import dreamers.lykiofrostpaw.plugin.listeners.PlayerLogin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -45,10 +46,11 @@ public final class Telepowort extends JavaPlugin {
         // Misc
         this.getCommand("ping").setExecutor(new ping(this));
         this.getCommand("nickname").setExecutor(new nickname(this));
-        this.getCommand("treload").setExecutor(new treload(this));
+        this.getCommand("telepowort").setExecutor(new telepowort(this));
         this.getCommand("back").setExecutor(new back(this));
 
         // Listeners
+        new PlayerDeath(this);
         new PlayerLogin(this);
     }
 

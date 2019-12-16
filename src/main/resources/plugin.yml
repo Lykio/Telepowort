@@ -1,8 +1,9 @@
 name: Telepowort
 author: Lykio_Frostpaw
 main: dreamers.lykiofrostpaw.plugin.Telepowort
-version: 1r
+version: 2r
 api-version: 1.14
+description: Gives all players tools to quickly get from place to place.
 commands:
   home:
     usage: /home <home>
@@ -53,3 +54,6 @@ commands:
     description: Will send you back to where you were prior to being teleported.
     aliases:
       - b
+  telepowort:
+    usage: /telepowort version/reload
+    description: Notifies user of the plugin's current build or reloads the plugin.

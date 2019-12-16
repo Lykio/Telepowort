@@ -47,7 +47,7 @@ public class WarpConfig {
         }
     }
 
-    void reload() {
+    public void reload() {
         saveWarpConfig();
         warpConfig = YamlConfiguration.loadConfiguration(warpConfigFile);
     }
@@ -92,9 +92,9 @@ public class WarpConfig {
     Location getWarp(String warp) {
         return new Location(
                 Bukkit.getWorld(warpConfig.getString("Warps." + warp + ".world")),
-                warpConfig.getInt("Warps." + warp + ".x"),
+                warpConfig.getInt("Warps." + warp + ".x") + 0.5,
                 warpConfig.getInt("Warps." + warp + ".y"),
-                warpConfig.getInt("Warps." + warp + ".z"),
+                warpConfig.getInt("Warps." + warp + ".z") + 0.5,
                 warpConfig.getInt("Warps." + warp + ".yaw"),
                 warpConfig.getInt("Warps." + warp + ".pitch")
         );
