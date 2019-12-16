@@ -22,7 +22,7 @@ public class PlayerLogin implements Listener {
         }
     }
 
-    @EventHandler // Creating their config, if it doesn't exist, on LoginEvent
+    @EventHandler // Create player's config, if it doesn't exist, on PlayerLoginEvent
     public void createConfig(PlayerLoginEvent event) {
         PlayerConfig playerConfig = new PlayerConfig(event.getPlayer());
         playerConfig.createPlayerConfig();

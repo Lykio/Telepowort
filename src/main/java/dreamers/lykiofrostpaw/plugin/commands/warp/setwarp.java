@@ -18,6 +18,10 @@ public class setwarp implements CommandExecutor, TabCompleter {
         this.plugin = plugin;
     }
 
+    /*
+     * Create a new warp in the config
+     */
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String warp = null;
@@ -51,10 +55,7 @@ public class setwarp implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         WarpConfig warpConfig = new WarpConfig(plugin);
 
-        if (!warpConfig.getWarps().isEmpty()) {
-            return new ArrayList<>(warpConfig.getWarps());
-        }
-
+        if (!warpConfig.getWarps().isEmpty()) return new ArrayList<>(warpConfig.getWarps());
         return new ArrayList<>();
     }
 }

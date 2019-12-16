@@ -25,6 +25,7 @@ public class WarpConfig {
         warpConfig = YamlConfiguration.loadConfiguration(warpConfigFile);
     }
 
+    // Create warp config
     public void createWarpConfig() {
         try {
             if (warpConfigFile.createNewFile()) {
@@ -39,6 +40,7 @@ public class WarpConfig {
         }
     }
 
+    // Set warp config's defaults
     private void createWarpConfigDefaults() {
         if (warpConfigFile.length() == 0) {
             warpConfig.set("Acknowledged", true);
@@ -47,19 +49,23 @@ public class WarpConfig {
         }
     }
 
+    // This will reload this the warp config
     public void reload() {
         saveWarpConfig();
         warpConfig = YamlConfiguration.loadConfiguration(warpConfigFile);
     }
 
+    // An inefficient check to see if warp config exists
     public boolean exists() {
         return warpConfig.getBoolean("Acknowledged");
     }
 
+    // A getter for warp config
     public FileConfiguration getWarpConfig() {
         return warpConfig;
     }
 
+    // Saves any changes made through setters
     public void saveWarpConfig() {
         try {
             getWarpConfig().save(warpConfigFile);
@@ -69,6 +75,7 @@ public class WarpConfig {
         }
     }
 
+    // Checks the player invoker against a warp's owner
     boolean isCreator(String warp, String player) {
         try {
             if (warpConfig.getString("Warps." + warp + ".creator").equals(player)) {
@@ -81,6 +88,7 @@ public class WarpConfig {
         return false;
     }
 
+    // Set getter for all warps
     Set<String> getWarps() {
         try {
             return warpConfig.getConfigurationSection("Warps").getKeys(false);
@@ -89,6 +97,7 @@ public class WarpConfig {
         }
     }
 
+    // Location getter for a specific warp
     Location getWarp(String warp) {
         return new Location(
                 Bukkit.getWorld(warpConfig.getString("Warps." + warp + ".world")),
@@ -100,6 +109,7 @@ public class WarpConfig {
         );
     }
 
+    // Sets a new warp
     void addWarp(String warp, String player, Location loc) {
         warpConfig.set("Warps." + warp + ".creator", player);
         warpConfig.set("Warps." + warp + ".world", loc.getWorld().getName());
@@ -111,8 +121,9 @@ public class WarpConfig {
         saveWarpConfig();
     }
 
+    // Nulls are pre-existing warp
     void delWarp(String warp) {
-            warpConfig.set("Warps." + warp, null);
+        warpConfig.set("Warps." + warp, null);
         saveWarpConfig();
     }
 }

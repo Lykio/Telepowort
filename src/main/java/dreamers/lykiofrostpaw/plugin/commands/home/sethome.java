@@ -19,6 +19,10 @@ public class sethome implements CommandExecutor, TabCompleter {
         this.plugin = plugin;
     }
 
+    /*
+     * Store a new location in the player's config as a home
+     */
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String home = null;

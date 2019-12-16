@@ -17,14 +17,18 @@ import java.util.List;
 public class telepowort implements CommandExecutor, TabCompleter {
     private final Telepowort plugin;
 
+    public telepowort(Telepowort plugin) {
+        this.plugin = plugin;
+    }
+
+    /*
+     * Give the user information about the plugin
+     */
+
     private final String[] commands = {
             "version",
             "reload"
     };
-
-    public telepowort(Telepowort plugin) {
-        this.plugin = plugin;
-    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

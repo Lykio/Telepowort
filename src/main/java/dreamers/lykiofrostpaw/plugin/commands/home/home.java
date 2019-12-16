@@ -14,10 +14,15 @@ import java.util.List;
 
 public class home implements CommandExecutor, TabCompleter {
     private final Telepowort plugin;
-    StringBuilder homeBuilder;
+
     public home(Telepowort plugin) {
         this.plugin = plugin;
     }
+
+    /*
+     * Doubles both as a informational command and a teleport
+     * Empty arguments will return a StringBuilder to the player
+     */
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -75,9 +80,7 @@ public class home implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         PlayerConfig playerConfig = new PlayerConfig((Player) sender);
 
-        if (!playerConfig.getHomes().isEmpty()) {
-            return new ArrayList<>(playerConfig.getHomes());
-        }
+        if (!playerConfig.getHomes().isEmpty()) return new ArrayList<>(playerConfig.getHomes());
 
         return new ArrayList<>();
     }

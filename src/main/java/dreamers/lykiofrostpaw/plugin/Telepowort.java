@@ -5,7 +5,6 @@ import dreamers.lykiofrostpaw.plugin.commands.home.home;
 import dreamers.lykiofrostpaw.plugin.commands.home.sethome;
 import dreamers.lykiofrostpaw.plugin.commands.miscellaneous.back;
 import dreamers.lykiofrostpaw.plugin.commands.miscellaneous.nickname;
-import dreamers.lykiofrostpaw.plugin.commands.miscellaneous.ping;
 import dreamers.lykiofrostpaw.plugin.commands.miscellaneous.telepowort;
 import dreamers.lykiofrostpaw.plugin.commands.tpa.tpa;
 import dreamers.lykiofrostpaw.plugin.commands.warp.WarpConfig;
@@ -20,6 +19,7 @@ import java.io.File;
 
 
 public final class Telepowort extends JavaPlugin {
+    private WarpConfig warpConfig;
 
     @Override
     public void onEnable() {
@@ -27,7 +27,7 @@ public final class Telepowort extends JavaPlugin {
         // Prevent crashing because code is trash
         File userspath = new File(getDataFolder() + "\\users");
         if (!userspath.exists()) userspath.mkdirs();
-        WarpConfig warpConfig = new WarpConfig(this);
+        warpConfig = new WarpConfig(this);
         if (!warpConfig.exists()) warpConfig.createWarpConfig();
 
         // Home
@@ -44,7 +44,6 @@ public final class Telepowort extends JavaPlugin {
         this.getCommand("delwarp").setExecutor(new delwarp(this));
 
         // Misc
-        this.getCommand("ping").setExecutor(new ping(this));
         this.getCommand("nickname").setExecutor(new nickname(this));
         this.getCommand("telepowort").setExecutor(new telepowort(this));
         this.getCommand("back").setExecutor(new back(this));
@@ -56,12 +55,11 @@ public final class Telepowort extends JavaPlugin {
 
     @Override
     public void onLoad() {
-
     }
 
     @Override
     public void onDisable() {
-
+        warpConfig.saveWarpConfig();
     }
 
 }

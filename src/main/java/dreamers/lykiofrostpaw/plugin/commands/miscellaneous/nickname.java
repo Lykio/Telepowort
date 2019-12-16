@@ -16,6 +16,10 @@ public class nickname implements CommandExecutor {
         this.plugin = plugin;
     }
 
+    /*
+     * Store args[0] into playerConfig's Nickname key and call it a day
+     */
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String name = null;

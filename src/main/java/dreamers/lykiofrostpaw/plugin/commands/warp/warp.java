@@ -14,11 +14,14 @@ import java.util.List;
 
 public class warp implements CommandExecutor, TabCompleter {
     private final Telepowort plugin;
-    private WarpConfig warpConfig;
 
     public warp(Telepowort plugin) {
         this.plugin = plugin;
     }
+
+    /*
+     * Doubles as a command that lists all existing warps or a teleport
+     */
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -80,10 +83,7 @@ public class warp implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         WarpConfig warpConfig = new WarpConfig(plugin);
 
-        if (!warpConfig.getWarps().isEmpty()) {
-            return new ArrayList<>(warpConfig.getWarps());
-        }
-
+        if (!warpConfig.getWarps().isEmpty()) return new ArrayList<>(warpConfig.getWarps());
         return new ArrayList<>();
     }
 }

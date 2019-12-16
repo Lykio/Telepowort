@@ -18,6 +18,10 @@ public class delwarp implements CommandExecutor, TabCompleter {
         this.plugin = plugin;
     }
 
+    /*
+     * If the player is the owner of the warp, null it
+     */
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String warp = null;
@@ -58,10 +62,7 @@ public class delwarp implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         WarpConfig warpConfig = new WarpConfig(plugin);
 
-        if (!warpConfig.getWarps().isEmpty()) {
-            return new ArrayList<>(warpConfig.getWarps());
-        }
-
+        if (!warpConfig.getWarps().isEmpty()) return new ArrayList<>(warpConfig.getWarps());
         return new ArrayList<>();
     }
 }

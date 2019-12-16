@@ -19,6 +19,10 @@ public class delhome implements CommandExecutor, TabCompleter {
         this.plugin = plugin;
     }
 
+    /*
+     * This essentially just nulls a Home key and stores that as a key
+     */
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String home = null;
@@ -55,10 +59,7 @@ public class delhome implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         PlayerConfig playerConfig = new PlayerConfig((Player) sender);
 
-        if (!playerConfig.getHomes().isEmpty()) {
-            return new ArrayList<>(playerConfig.getHomes());
-        }
-
+        if (!playerConfig.getHomes().isEmpty()) return new ArrayList<>(playerConfig.getHomes());
         return new ArrayList<>();
     }
 }

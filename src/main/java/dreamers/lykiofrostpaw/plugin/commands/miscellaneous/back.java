@@ -11,9 +11,14 @@ import org.bukkit.entity.Player;
 
 public class back implements CommandExecutor {
     private final Telepowort plugin;
+
     public back(Telepowort plugin) {
         this.plugin = plugin;
     }
+
+    /*
+     * Teleport a player to the location stored in playerConfig.getLastTeleportLocation()
+     */
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

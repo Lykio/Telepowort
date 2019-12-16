@@ -16,13 +16,13 @@ public class PlayerDeath implements Listener {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
-    @EventHandler
+    @EventHandler // Set player's back location to where they died
     public void playerDied(PlayerDeathEvent e) {
         PlayerConfig playerConfig = new PlayerConfig(e.getEntity());
         playerConfig.setLastTeleportLocation(e.getEntity().getLocation());
     }
 
-    @EventHandler
+    @EventHandler // Let Player know they can back to where they died
     public void playerRespawned(PlayerPostRespawnEvent e) {
         e.getPlayer().sendMessage(ChatColor.YELLOW + "Use " + ChatColor.DARK_RED + "/back" + ChatColor.YELLOW + " to return to where you died.");
     }

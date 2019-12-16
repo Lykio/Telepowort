@@ -27,6 +27,7 @@ public class PlayerConfig {
         playerConfig = YamlConfiguration.loadConfiguration(playerConfigFile);
     }
 
+    // Create player's config
     public void createPlayerConfig() {
         try {
             if (playerConfigFile.createNewFile()) {
@@ -41,6 +42,7 @@ public class PlayerConfig {
         }
     }
 
+    // Set player's defaults
     private void createPlayerConfigDefaults() {
         if (playerConfigFile.length() == 0) {
             playerConfig.set("Acknowledged", true);
@@ -52,19 +54,23 @@ public class PlayerConfig {
         }
     }
 
+    // Reloads this player's config
     public void reload() {
         savePlayerConfig();
         playerConfig = YamlConfiguration.loadConfiguration(playerConfigFile);
     }
 
+    // Checks if this player's config file and has been appended
     public boolean exists() {
         return playerConfig.getBoolean("Acknowledged");
     }
 
+    // A getter for playerConfig
     public FileConfiguration getPlayerConfig() {
         return playerConfig;
     }
 
+    // Saves any changes made through playerConfig.set
     public void savePlayerConfig() {
         try {
             getPlayerConfig().save(playerConfigFile);
@@ -74,26 +80,30 @@ public class PlayerConfig {
         }
     }
 
+    // Will return the player's name as stored in the config
     public String getName() {
         return playerConfig.getString("Name");
     }
 
+    // Will return the player's nickname as store in the config
     public String getNickname() {
         return playerConfig.getString("Nickname");
     }
 
+    // Will store the player's nickname in the config
     public void setNickname(String nickname) {
         playerConfig.set("Nickname", nickname);
         savePlayerConfig();
         log.info("Player " + player.getDisplayName() + "changed their nickname to " + nickname);
     }
 
+    // Gets the player's last teleportcommandinvoked location
     public Location getLastTeleportLocation() {
         if (Bukkit.getWorld(playerConfig.getString("Last-Teleport-Location.world")) != null) {
             return new Location(
                     Bukkit.getWorld(playerConfig.getString("Last-Teleport-Location.world")),
                     playerConfig.getInt("Last-Teleport-Location.x") + 0.5,
-                    playerConfig.getInt("Last-Teleport-Location.y") + 0.5,
+                    playerConfig.getInt("Last-Teleport-Location.y"),
                     playerConfig.getInt("Last-Teleport-Location.z") + 0.5,
                     playerConfig.getInt("Last-Teleport-Location.yaw"),
                     playerConfig.getInt("Last-Teleport-Location.pitch")
@@ -103,6 +113,7 @@ public class PlayerConfig {
         }
     }
 
+    // Sets the player's last teleportcommandinvoked location
     public void setLastTeleportLocation(Location loc) {
         playerConfig.set("Last-Teleport-Location.world", loc.getWorld().getName());
         playerConfig.set("Last-Teleport-Location.x", loc.getBlockX());
@@ -113,6 +124,7 @@ public class PlayerConfig {
         savePlayerConfig();
     }
 
+    // Returns a set of the player's homes
     public Set<String> getHomes() {
         try {
             return playerConfig.getConfigurationSection("Homes").getKeys(false);
@@ -121,6 +133,7 @@ public class PlayerConfig {
         }
     }
 
+    // Returns a location of the player's specified home
     public Location getHome(String home) {
         if (Bukkit.getWorld(playerConfig.getString("Homes." + home + ".world")) != null) {
             return new Location(
@@ -136,6 +149,7 @@ public class PlayerConfig {
         }
     }
 
+    // Stores a home the player specified
     public void addHome(String home, Location loc) {
         playerConfig.set("Homes." + home + ".world", loc.getWorld().getName());
         playerConfig.set("Homes." + home + ".x", loc.getBlockX());
@@ -146,9 +160,9 @@ public class PlayerConfig {
         savePlayerConfig();
     }
 
+    // Nulls a home the player specified
     public void delHome(String home) {
         playerConfig.set("Homes." + home, null);
         savePlayerConfig();
     }
-
 }
