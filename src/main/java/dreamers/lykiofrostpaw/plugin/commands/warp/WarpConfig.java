@@ -104,7 +104,7 @@ public class WarpConfig {
         warpConfig.set("Warps." + warp + ".creator", player);
         warpConfig.set("Warps." + warp + ".world", loc.getWorld().getName());
         warpConfig.set("Warps." + warp + ".x", loc.getBlockX());
-        warpConfig.set("Warps." + warp + ".y", loc.getBlockY());
+        warpConfig.set("Warps." + warp + ".y", loc.getY());
         warpConfig.set("Warps." + warp + ".z", loc.getBlockZ());
         warpConfig.set("Warps." + warp + ".yaw", loc.getYaw());
         warpConfig.set("Warps." + warp + ".pitch", loc.getPitch());

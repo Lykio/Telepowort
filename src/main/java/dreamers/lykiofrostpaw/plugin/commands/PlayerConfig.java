@@ -106,7 +106,7 @@ public class PlayerConfig {
     public void setLastTeleportLocation(Location loc) {
         playerConfig.set("Last-Teleport-Location.world", loc.getWorld().getName());
         playerConfig.set("Last-Teleport-Location.x", loc.getBlockX());
-        playerConfig.set("Last-Teleport-Location.y", loc.getBlockY());
+        playerConfig.set("Last-Teleport-Location.y", loc.getY());
         playerConfig.set("Last-Teleport-Location.z", loc.getBlockZ());
         playerConfig.set("Last-Teleport-Location.yaw", loc.getYaw());
         playerConfig.set("Last-Teleport-Location.pitch", loc.getPitch());
@@ -139,7 +139,7 @@ public class PlayerConfig {
     public void addHome(String home, Location loc) {
         playerConfig.set("Homes." + home + ".world", loc.getWorld().getName());
         playerConfig.set("Homes." + home + ".x", loc.getBlockX());
-        playerConfig.set("Homes." + home + ".y", loc.getBlockY());
+        playerConfig.set("Homes." + home + ".y", loc.getY());
         playerConfig.set("Homes." + home + ".z", loc.getBlockZ());
         playerConfig.set("Homes." + home + ".yaw", loc.getYaw());
         playerConfig.set("Homes." + home + ".pitch", loc.getPitch());
